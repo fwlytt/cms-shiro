@@ -319,7 +319,7 @@ h4, h5 {
 }
 
 .article {
-    background-image: url("../image/article.jpg");
+    background-image: url("/images/article.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center top;
@@ -444,7 +444,7 @@ h4, h5 {
 
     /* 加载放大镜的图片 */
 
-    /*background: url("../image/work01.jpg") no-repeat;*/
+    /*background: url("/images/work01.jpg") no-repeat;*/
 
     background-repeat: no-repeat;
 
@@ -536,7 +536,8 @@ h4, h5 {
     text-align: center;
 }
 #article p {
-    display: inline-block;
+    /*display: inline-block;*/
+    display: block;
 }
 #article a {
     display: inline-block;
