@@ -1,0 +1,249 @@
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-row layui-col-space15">
+                <!--<div class="layui-col-md3">-->
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header"><h2 style="float: left">编辑作品</h2>
+                            <div style="float: right">
+                                <div class="layui-inline">
+                                    <a class="layui-btn layui-btn-sm" style="float: right;"
+                                       href="#/works/list">
+                                        取消
+                                    </a>
+                                </div>
+                                <div class="layui-inline">
+                                    <button class="layui-btn layui-btn-sm" style="float: right;" id="u_save">
+                                        保存
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card-body">
+                            <form class="layui-form" lay-filter="u_cms" id="u_cms" style="margin-right: 200px">
+                                <input type="hidden" id="u_id">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">名称</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="u_title" autocomplete="off" class="layui-input" id="u_title">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">基本信息</label>
+                                    <div class="layui-input-block">
+                                        <textarea name="u_content" class="layui-textarea" id="u_content"></textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">尺寸</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="u_picSize" autocomplete="off" class="layui-input" id="u_picSize">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">年份</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="u_workYear" class="layui-input" readonly id="u_workYear">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">首页显示</label>
+                                        <div class="layui-input-block">
+                                            <select name="u_homeShow" id="u_homeShow">
+                                                <option value=""></option>
+                                                <option value="是">是</option>
+                                                <option value="否" selected>否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">序号</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="u_rank" class="layui-input" id="u_rank">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">轮播图显示</label>
+                                        <div class="layui-input-block">
+                                            <select name="u_banner" id="u_banner">
+                                                <option value=""></option>
+                                                <option value="是">是</option>
+                                                <option value="否" selected>否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">轮播图序号</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="u_bannerRank" class="layui-input" id="u_bannerRank">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item" style="margin-left: 110px">
+                                    <div class="layui-upload">
+                                        <div class="layui-upload-list">
+                                            <img class="layui-upload-img" id="demo1">
+                                            <p id="demoText"></p>
+                                        </div>
+                                        <button type="button" class="layui-btn" id="test1" style="width: 150px">上传图片</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detail"
+       href="#/works/info" style="float: left">
+        <i class="layui-icon">&#xe702;</i>编辑
+    </a>
+    <a class="layui-btn layui-btn-xs" lay-event="delete"
+       style="float: left">
+        <i class="layui-icon">&#xe702;</i>删除
+    </a>
+</script>
+
+<script th:inline="none">
+    layui.config({
+        base: '/src/js/'
+    }).use(['jquery', 'layer','form','laydate','upload'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            form = layui.form,
+            laydate = layui.laydate,
+            upload  = layui.upload;
+
+        form.render();
+        var picUrl;
+
+        //fieldId有值则为编辑，无值为新增
+        if (fieldId) {
+            $.ajax({
+                type: "post",
+                url: "/works/getInfo",
+                contentType: "application/json",
+                data: JSON.stringify(fieldId),
+                dataType: "json",
+                async: true,
+                cache: false,
+                success: function (data) {
+                    if (data.code === '0') {
+                        form.val("u_cms",{
+                            "u_workYear": data.data.workYear
+                            ,"u_title": data.data.title
+                            ,"u_content": data.data.content
+                            ,"u_picSize": data.data.picSize
+                            ,"u_homeShow": data.data.homeShow
+                            ,"u_banner": data.data.banner
+                            ,"u_rank": data.data.rank
+                            ,"u_bannerRank": data.data.bannerRank
+                        });
+                        $('#demo1').attr('src', data.data.picUrl)
+                    } else {
+                        layer.msg(data.msg, {time: 1000});
+                    }
+                },
+                error: function () {
+                    layer.msg("数据异常，请刷新后再试", {time: 1000})
+                }
+            });
+        }
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            ,url: '/works/uploadPic' //上传接口
+            ,accept: 'images'
+            ,size: 500
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                //上传完毕回调
+                if (res.code === '0') {
+                    picUrl = '/workImage/' +  res.data;
+
+                }
+            }
+            ,error: function(){
+                layer.msg("上传失败，请刷新后再试", {time: 1000})
+            }
+        });
+
+        laydate.render({
+            elem: '#u_workYear'
+            ,type: 'year'
+        });
+
+        $("#u_save").on('click', function(){
+            var workYear = $("#u_workYear").val();
+            var title = $("#u_title").val();
+            var content = $("#u_content").val();
+            var picSize = $("#u_picSize").val();
+            var homeShow = $("#u_homeShow").val();
+            var banner = $("#u_banner").val();
+            var rank = $("#u_rank").val();
+            var bannerRank = $("#u_bannerRank").val();
+            
+            if (!workYear) {
+                layer.msg('请选择年份',{time:1000});
+            }
+            if (!picUrl) {
+                layer.msg('请上传图片',{time:1000});
+            }
+
+            var dataParam={};
+            dataParam['workYear'] = workYear;
+            dataParam['picUrl'] = picUrl;
+
+            dataParam['title'] = title;
+            dataParam['content'] = content;
+            dataParam['picSize'] = picSize;
+            dataParam['homeShow'] = homeShow;
+            dataParam['banner'] = banner;
+            dataParam['rank'] = rank;
+            dataParam['bannerRank'] = bannerRank;
+
+            var url =  "/works/insert";
+            if (fieldId) {
+                url = "/works/update";
+                dataParam["id"] = fieldId;
+            }
+            $.ajax({
+                type: "post",
+                url: url,
+                contentType: "application/json",
+                data: JSON.stringify(dataParam),
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data.code === '0') {
+                        layer.msg("保存成功", {time: 1000});
+                    } else {
+                        layer.msg(data.msg, {time: 1000});
+                    }
+                },
+                error: function () {
+                    layer.msg("数据异常，请刷新后再试", {time: 1000})
+                }
+            });
+        })
+    })
+
+</script>
+
+<style>
+    .layui-upload-img{width: 150px; height: 150px; margin: 0 10px 10px 0;}
+</style>

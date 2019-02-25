@@ -1,0 +1,169 @@
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-row layui-col-space15">
+                <!--<div class="layui-col-md3">-->
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header"><h2 style="float: left">作品Work</h2>
+                            <div style="float: right">
+                                <div class="layui-inline">
+                                    <input class="layui-input" style="height: 30px; width: 100px"
+                                           id="s_key" autocomplete="off" placeholder="名称">
+                                </div>
+                                <button class="layui-btn layui-btn-sm" data-type="reload" id="s_reload" >
+                                    <i class="layui-icon">&#xe615;</i>
+                                </button>
+
+                                <div class="layui-inline">
+                                    <a class="layui-btn layui-btn-sm" style="float: right;" href="#/works/info">
+                                        <i class="layui-icon">&#xe654;</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card-body">
+                            <table id="cmsList" lay-filter="cmsList"></table>
+                            <div id="laypage"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detail"
+       href="#/works/info" style="float: left">
+        <i class="layui-icon">&#xe702;</i>编辑
+    </a>
+    <a class="layui-btn layui-btn-xs" lay-event="delete"
+       style="float: left">
+        <i class="layui-icon">&#xe702;</i>删除
+    </a>
+</script>
+
+<script th:inline="none">
+    layui.config({
+        base: '/src/js/'
+    }).use(['jquery', 'layer', 'table','form'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            table = layui.table;
+
+        fieldId = '';
+
+        //列表实例
+        table.render({
+            method: 'post',
+            // done: function (res) {
+            //     console.log(res)
+            // },
+            elem: '#cmsList',
+            height: 'full-160',
+            url: '../../works/getList', //数据接口
+            contentType: 'application/json',
+            page: true, //开启分页
+            id: "cmsList2",
+            autoSort: false, //禁用前端排序
+//            cellMinWidth: 120,
+            cols: [
+                [ //表头
+                    {field: 'workYear',  title: '年份'}
+                    ,{field: 'title',  title: '名称'}
+                    ,{field: 'content',  title: '基本信息'}
+                    ,{field: 'picSize',  title: '尺寸'}
+                    ,{field: 'picUrl',  title: '图片',templet:'<div><img src="{{d.picUrl}}"></div>', width:250}
+                    ,{field: 'homeShow',  title: '首页显示'}
+                    ,{field: 'banner',  title: '轮播图显示'}
+                    ,{field: 'rank',  title: '序号'}
+                    ,{field: 'bannerRank',  title: '轮播图序号'}
+                    ,{title:'操作', toolbar: '#barDemo', width: 145}
+                ]
+            ]
+        });
+
+        //搜索
+        var active = {
+            reload: function(){
+                table.reload('cmsList2', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        key: $("#s_key").val()
+                    }
+                });
+            }
+        };
+
+        $('#s_reload').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        //监听排序事件
+        table.on('sort(cmsList)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            console.log(obj.field); //当前排序的字段名
+            console.log(obj.type); //当前排序类型：desc（降序）、asc（升序）、null（空对象，默认排序）
+            console.log(this); //当前排序的 th 对象
+
+            //尽管我们的 table 自带排序功能，但并没有请求服务端。
+            //有些时候，你可能需要根据当前排序的字段，重新向服务端发送请求，从而实现服务端排序，如：
+            table.reload('cmsList2', {
+                initSort: obj //记录初始排序，如果不设的话，将无法标记表头的排序状态。
+                , where: { //请求参数（注意：这里面的参数可任意定义，并非下面固定的格式）
+                    field: obj.field //排序字段
+                    , order: obj.type //排序方式
+                }
+            });
+        });
+
+        //监听工具条
+        table.on('tool(cmsList)', function(obj){
+            if(obj.event === 'detail'){ //编辑
+                fieldId = obj.data.id;
+            } else if (obj.event === 'delete') { //删除
+                layer.confirm('是否确认删除该记录',{
+                    title: '删除记录',
+                    closeBtn: 0,
+                    offset: '20%',
+                    btn: ['确定', '取消']
+                }, function(index){
+                    $.ajax({
+                        type: "post",
+                        url: "/works/delete",
+                        contentType: "application/json",
+                        data: JSON.stringify(obj.data.id),
+                        dataType: "json",
+                        cache: false,
+                        async: false,
+                        success: function (data) {
+                            if (data.code === '0') {
+                                layer.msg("删除成功",{time:1000},function () {
+                                    table.reload("cmsList2");
+                                });
+                            } else {
+                                layer.msg(data.msg,{time:1000});
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }, function(index) {
+                    layer.close(index);
+                })
+            }
+            //禁用行点击事件
+            // obj.preventDefault();
+        });
+    });
+</script>
+
+
+<style type="text/css">
+    .layui-table-cell {
+        height: auto;!important;
+        white-space: normal;
+    }
+</style>

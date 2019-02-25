@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=0"/>-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="keywords" content="孙得菁 DEJING SUN"/>
+    <meta name="description" content="孙得菁的个人网站"/>
+    <title>孙得菁 DEJING SUN</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/assets/css/sangarSlider.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/assets/themes/default/default.css}" media="all"/>
+    <link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/style.m.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/banner.css}"/>
+
+
+    <!--[if !IE]> -->
+    <script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+    <!-- <![endif]-->
+
+    <!--[if IE]>
+    <script type="text/javascript" th:src="@{/js/jquery-1.12.4.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-1.8.2.min.js}"></script>
+    <![endif]-->
+
+    <script type="text/javascript" th:src="@{/js/jquery-1.8.2.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/lib/fullwidthbanner/jquery.banner.revolution.min.js}"></script>
+    <script type="text/javascript" th:src="@{/lib/fullwidthbanner/banner.js}"></script>
+</head>
+<body>
+<input type="hidden" th:value="${fieldId}" id="fieldId">
+<input type="hidden" th:value="${workYears}" id="workYears">
+<div class="home">
+    <div class="main">
+        <div class="head">
+            <div class="logo">
+                <a href="/pages/show/index/0">
+                    <img src="/images/sun.png">
+                </a>
+            </div>
+            <ol class="menu">
+                <li>
+                    <a href="/pages/show/work/0">作品Work</a>
+                </li>
+                <li>
+                    <a href="#biography">经历Biography</a>
+                </li>
+                <li>
+                    <a href="/pages/show/article/0">评论文章Article</a>
+                </li>
+                <li>
+                    <a href="#contact">联系方式Contact</a>
+
+                </li>
+            </ol>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div class="fullwidthbanner-container">
+            <div class="fullwidthbanner">
+                <ul id="banner">
+                    <li th:each="val:${banners}"
+                        data-transition='transition' data-slotamount='15' data-masterspeed='300'
+                        th:onclick="'jumpTo('+${val.id}+')'">
+                        <img th:src="${val.picUrl}"/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="" id="works">
+        <div class=" ">
+            <div class="main">
+                <div class='sangar-slideshow-container' id='sangar-example'>
+                    <div class='sangar-content-wrapper' style='display:none;' id="sangar-content-wrapper">
+                        <div th:each="val:${works}" class='sangar-content'
+                             th:onclick="'jumpTo('+${val.id}+')'">
+                            <img th:src="${val.picUrl}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ban" id="biography">
+        <img src="/images/pic-02.jpg"/>
+        <div>
+            <div class="f-right">
+                <div class="dis-table f-left">
+                    <div class="dis-cell">
+                        <span>经历 Biography</span>
+                        <ul>
+                            <li th:each="val:${exps}">
+                                <span th:text="${val.expYear + '-  '+ val.content}">expYear</span>
+                            </li>
+                            <li><span>......</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ban" id="article">
+        <img src="/images/pic-03.jpg"/>
+        <div>
+            <div class="f-left">
+                <div class="dis-table">
+                    <div class="dis-cell">
+                        <div class="arTitle">
+                        <h5>评论文章 Article</h5>
+                            <p th:each="val:${articles}">
+                                <a th:href="${'/pages/show/article/'+val.id}"
+                                   th:text="${val.title+'——'+val.author}">
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ban" id="contact">
+        <img src="/images/pic-04.jpg"/>
+        <div>
+            <div class="f-right">
+                <div class="dis-table">
+                    <div class="dis-cell">
+                        <p>联系方式 Contact</p>
+                        <p>15904699637</p>
+                        <p>956513007@qq.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var jumpTo = function (workId) {
+        window.location.href = '/pages/show/work/' + workId;
+    };
+
+    /*-------------------banner---------------------------------------*/
+    var banhref = '"/pages/show/work/0"', //banner图片链接
+        bansrc = '/images/pic-01.jpg',    //banner图片路径f
+        banner = "<li data-transition='transition' data-slotamount='15' data-masterspeed='300' onclick='window.location.href=" + banhref + "'><img src='" + bansrc + "'/></li>";
+
+    //    $('#banner').append(banner);
+    //    $('#banner').append(banner);
+    //    $('#banner').append(banner);
+
+
+    /*-------------------work---------------------------------------*/
+    var imghref = '"/pages/show/work/0.html"', //作品图片链接
+        imgsrc = '/images/work01.jpg',    //图片路径
+        imgn = 5,//添加的作品图片个数
+        workimg = "<div class='sangar-content' onclick='window.location.href=" + imghref + "'><img src='" + imgsrc + "'/></div>";
+
+    //    $('#sangar-content-wrapper').append(workimg);
+    //    $('#sangar-content-wrapper').append(workimg);
+    //    $('#sangar-content-wrapper').append(workimg);
+    //    $('#sangar-content-wrapper').append(workimg);
+    //    $('#sangar-content-wrapper').append(workimg);
+
+</script>
+
+<script type="text/javascript" th:src="@{/lib/assets/js/jquery.touchSwipe.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/imagesloaded.min.js}"></script>
+<!-- jQuery Sangar Slider -->
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarBaseClass.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarSetupLayout.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarSizeAndScale.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarShift.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarSetupBulletNav.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarSetupNavigation.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarSetupSwipeTouch.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarSetupTimer.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarBeforeAfter.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarLock.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarResponsiveClass.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarResetSlider.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarTextbox.js}"></script>
+<script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider.js}"></script>
+<script type='text/javascript'>
+    jQuery(document).ready(function ($) {
+        var workYears = $("#workYears").val();
+        var yearList = JSON.parse(workYears);
+        var yearSize = workYears.split(",");
+
+        var main = $('.main').eq(0).width(), height, pcWidth;
+
+        if (main >= 750) {
+            height = 600 / yearSize.length;
+            pcWidth = 150;
+        } else {
+            height = (main - 80) / yearSize.length;
+            pcWidth = 80;
+        }
+
+        var sangar = $('#sangar-example').sangarSlider({
+            animation: 'vertical-slide', // horizontal-slide, vertical-slide, fade
+            timer: true, // true or false to have the timer
+            continousSliding: true, // only works for horizontal-slide and vertical-slide
+            scaleSlide: false, // slider will scale to the container size
+            scaleImage: true, // slider will scale to the container size
+            pagination: 'content-vertical', // bullet, content-horizontal, content-vertical, none
+            paginationContent: yearList,
+            paginationContentType: 'text', // text, image
+            paginationContentWidth: pcWidth, // slideshow width
+            width: 600, // slideshow width
+            height: 600, // slideshow height
+            background: '#fff',
+            fixedHeight: false  // height will fixed on scale
+        });
+
+        $('.sangar-slideshow-container > .default ul.sangar-pagination-content-vertical > li').css({
+            'height': height,
+            'line-height': height + 'px'
+        });
+
+        $('.sangar-slideshow-container').css('margin', height / 2 + 'px auto');
+
+        bioC();
+
+        function bioC() {
+            var imgH = $('#biography').height(),
+                bioH = $('#biography .bioBox').height(),
+                aimgH = $('#article').height(),
+                artH = $('#article .arTitle').height();
+            if (imgH < bioH) {
+                $('#biography > img').css({
+                    'height': bioH + 20 + 'px',
+                    'width': 'auto'
+                });
+            } else {
+                $('#biography > img').css({
+                    'height': 'auto',
+                    'width': '100%'
+                });
+            }
+
+            if (artH <= aimgH) {
+                $('#article p').css('display', 'block');
+            } else {
+                $('#article p').css('display', 'inline-block');
+            }
+        }
+
+
+        window.onresize = function () {
+            bioC();
+        };
+
+        var fieldId = $("#fieldId").val();
+        if (fieldId && fieldId != 0) {
+            window.location.href = '#' + fieldId;
+        }
+    });
+</script>
+
+</html>

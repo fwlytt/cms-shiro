@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.cms.domain.Article">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="rank" jdbcType="INTEGER" property="rank" />
+    <result column="home_show" jdbcType="VARCHAR" property="homeShow" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+
+  <sql id="BaseColumnList">
+        id, title, author, content, rank, home_show, create_time, status
+    </sql>
+
+  <select id="queryList" parameterType="string" resultMap="BaseResultMap">
+    SELECT
+      id, title, author, rank, home_show, create_time, status
+    FROM article
+    <where>
+      status = '1'
+      <if test="_parameter!= null and _parameter !=''">
+        AND title LIKE CONCAT ('%',#{_parameter,jdbcType=VARCHAR},'%')
+      </if>
+    </where>
+    ORDER BY rank ASC
+  </select>
+
+  <select id="queryFullList" resultMap="BaseResultMap">
+    SELECT
+      id, title, author, content
+    FROM article
+    <where>
+      status = '1'
+    </where>
+    ORDER BY rank ASC
+  </select>
+
+  <select id="queryHomeShowList" resultMap="BaseResultMap">
+    SELECT
+      id, title, author
+    FROM article
+    <where>
+      status = '1'
+      AND home_show = '是'
+    </where>
+    ORDER BY rank ASC
+  </select>
+</mapper>

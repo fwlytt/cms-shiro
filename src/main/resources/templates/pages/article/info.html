@@ -1,0 +1,176 @@
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-row layui-col-space15">
+                <!--<div class="layui-col-md3">-->
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header"><h2 style="float: left">编辑文章</h2>
+                            <div style="float: right">
+                                <div class="layui-inline">
+                                    <a class="layui-btn layui-btn-sm" style="float: right;"
+                                            href="#/article/list">
+                                        取消
+                                    </a>
+                                </div>
+                                <div class="layui-inline">
+                                    <button class="layui-btn layui-btn-sm" style="float: right;" id="u_save">
+                                        保存
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card-body">
+                            <form class="layui-form" lay-filter="u_cms" id="u_cms" style="margin-right: 200px">
+                                <input type="hidden" id="u_id">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">标题</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="u_title"
+                                               autocomplete="off" class="layui-input" id="u_title">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">作者</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="u_author"
+                                               autocomplete="off" class="layui-input" id="u_author">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">基本信息</label>
+                                    <div class="layui-input-block">
+                                        <textarea name="u_content" class="layui-textarea" id="u_content">是多少</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">首页显示</label>
+                                        <div class="layui-input-block">
+                                            <select name="u_homeShow" id="u_homeShow">
+                                                <option value=""></option>
+                                                <option value="是">是</option>
+                                                <option value="否" selected>否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">序号</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="u_rank" class="layui-input" id="u_rank">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="none">
+    layui.config({
+        base: '/src/js/'
+    }).use([ 'jquery', 'layer', 'layedit','form'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            layedit = layui.layedit,
+            form = layui.form;
+
+        form.render();
+
+        //建立编辑器
+        var index = layedit.build('u_content',{
+            tool: [
+                'strong' //加粗
+                ,'italic' //斜体
+                ,'underline' //下划线
+                ,'del' //删除线
+                ,'|' //分割线
+                ,'left' //左对齐
+                ,'center' //居中对齐
+                ,'right' //右对齐
+                ,'link' //超链接
+                ,'unlink' //清除链接
+            ]
+        });
+
+        //fieldId有值则为编辑，无值为新增
+        if (fieldId) {
+            $.ajax({
+                type: "post",
+                url: "/article/getInfo",
+                contentType: "application/json",
+                data: JSON.stringify(fieldId),
+                dataType: "json",
+                async: true,
+                cache: false,
+                success: function (data) {
+                    if (data.code === '0') {
+                        form.val("u_cms",{
+                           "u_title": data.data.title
+                            ,"u_author": data.data.author
+                            ,"u_homeShow": data.data.homeShow
+                            ,"u_rank": data.data.rank
+                        });
+                        layedit.setContent(index,data.data.content);
+                    } else {
+                        layer.msg(data.msg, {time: 1000});
+                    }
+                },
+                error: function () {
+                    layer.msg("数据异常，请刷新后再试", {time: 1000})
+                }
+            });
+        }
+
+        $("#u_save").on('click', function(){
+            var title = $("#u_title").val();
+            var author = $("#u_author").val();
+            var content = layedit.getContent(index);
+            var homeShow = $("#u_homeShow").val();
+            var rank = $("#u_rank").val();
+
+            if (!title || !content || !homeShow) {
+                layer.msg("必填项不能为空", {time:1000});
+            }
+
+            var dataParam={};
+            dataParam['title'] = title;
+            dataParam['author'] = author;
+            dataParam['content'] = content;
+            dataParam['homeShow'] = homeShow;
+            dataParam['rank'] = rank;
+
+            var url =  "/article/insert";
+
+            if (fieldId) {
+                url =  "/article/update";
+                dataParam['id'] = fieldId;
+            }
+
+            $.ajax({
+                type: "post",
+                url: url,
+                contentType: "application/json",
+                data: JSON.stringify(dataParam),
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data.code === '0') {
+                        layer.msg("保存成功", {time: 1000});
+                    } else {
+                        layer.msg(data.msg, {time: 1000});
+                    }
+                },
+                error: function () {
+                    layer.msg("数据异常，请刷新后再试", {time: 1000})
+                }
+            });
+        })
+    })
+
+</script>

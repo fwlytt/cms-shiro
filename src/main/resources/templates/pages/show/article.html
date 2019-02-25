@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=0"/>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="keywords" content="孙得菁 DEJING SUN"/>
+    <meta name="description" content="孙得菁的个人网站"/>
+    <title>孙得菁 DEJING SUN</title>
+
+    <link rel="stylesheet"  th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/style.m.css}"/>
+
+    <!--[if !IE]> -->
+    <script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
+    <!-- <![endif]-->
+
+    <!--[if IE]>
+    <script type="text/javascript" th:src="@{/js/jquery-1.12.4.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-1.8.2.min.js}"></script>
+    <![endif]-->
+</head>
+<body>
+<input type="hidden" th:value="${fieldId}" id="fieldId"/>
+
+<div class="home article">
+    <div class="main">
+        <div class="head">
+            <div class="logo">
+                <a href="/pages/show/index/0">
+                    <img src="/images/sun.png"/>
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/pages/show/work/0">作品Work</a>
+                </li>
+                <li>
+                    <a href="/pages/show/index/biography">经历Biography</a>
+                </li>
+                <li>
+                    <a href="#" class="cur">评论文章Article</a>
+                </li>
+                <li>
+                    <a href="/pages/show/index/biography">经历Biography</a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="con">
+        <div class="main">
+            <div class="row margin-0">
+                <div class="col-md-3 padding-0">
+                    <ul id="articleMenu" class="nav navTab">
+                        <li th:each="val, iterStat: ${vals}" th:class="${iterStat.index == 0}?active">
+                            <a data-toggle="tab"th:href="${val.id}" th:text="${val.title}"  th:id="${'title_' + val.id}"> title</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content col-md-8 col-md-offset-1">
+                    <div id="articleCon">
+                        <div th:each="val, iterStat: ${vals}" th:style="${iterStat.index != 0}?'display:none'" th:id="${val.id}">
+                            <h4 th:text="${val.title}">title</h4>
+                            <h5 th:text="${val.author}">author</h5>
+                            <p th:utext="${val.content}">content</p>
+                        </div>
+                        <h4></h4>
+                        <h5></h5>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script>
+
+    var fieldId = $("#fieldId").val();
+
+    if (fieldId && fieldId != 0) {
+        //从首页的文章跳转过来
+        $('#title_'+fieldId).click();
+
+        $('#articleCon > div').hide();
+        $("#" + fieldId).show();
+    }
+
+    $("#articleMenu a").click(function () {
+        var articleId = this.getAttribute("href");
+        $('#articleCon > div').hide();
+        $("#" + articleId).show();
+    })
+
+</script>
+</html>

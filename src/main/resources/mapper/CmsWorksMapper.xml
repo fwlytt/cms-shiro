@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.dao.CmsWorksMapper">
+    <resultMap id="BaseResultMap" type="com.cms.domain.CmsWorks">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="work_year" jdbcType="VARCHAR" property="workYear"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="pic_size" jdbcType="VARCHAR" property="picSize"/>
+        <result column="pic_url" jdbcType="VARCHAR" property="picUrl"/>
+        <result column="banner" jdbcType="VARCHAR" property="banner"/>
+        <result column="rank" jdbcType="INTEGER" property="rank"/>
+        <result column="banner_rank" jdbcType="INTEGER" property="bannerRank"/>
+        <result column="home_show" jdbcType="VARCHAR" property="homeShow"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, work_year, title, content, pic_size, pic_url, banner, rank, banner_rank, home_show, create_time, status
+    </sql>
+
+    <select id="queryList" parameterType="string" resultMap="BaseResultMap">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM cms_works
+        <where>
+            status = '1'
+            <if test="_parameter!= null and _parameter !=''">
+                AND title LIKE CONCAT ('%',#{_parameter,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+        ORDER BY work_year DESC, rank ASC
+    </select>
+
+    <select id="queryBannerList" resultMap="BaseResultMap">
+        SELECT id, pic_url
+        FROM cms_works
+        <where>
+            status = '1'
+            AND banner = '是'
+        </where>
+        ORDER BY banner_rank ASC
+    </select>
+
+    <select id="queryHomeShowList" resultMap="BaseResultMap">
+        SELECT id, pic_url
+        FROM cms_works
+        <where>
+            status = '1'
+            AND home_show = '是'
+        </where>
+        ORDER BY  work_year DESC, rank ASC
+    </select>
+    
+    <select id="queryYearList" resultType="string">
+        SELECT DISTINCT work_year
+        FROM cms_works
+        <where>
+            status = '1'
+        </where>
+        ORDER BY work_year DESC
+    </select>
+    <select id="queryHomeShowYearList" resultType="string">
+        SELECT DISTINCT work_year
+        FROM cms_works
+        <where>
+            status = '1'
+            AND home_show = '是'
+        </where>
+        ORDER BY work_year DESC
+    </select>
+
+    <select id="countHomeShowByYear" resultType="int" parameterType="com.cms.domain.CmsWorks">
+        SELECT count(*)
+        FROM cms_works
+        <where>
+            status = '1'
+            AND home_show = '是'
+            AND work_year = #{workYear, jdbcType=VARCHAR}
+            <if test="id != null and id != ''">
+                AND id &lt;> #{id, jdbcType=INTEGER}
+            </if>
+        </where>
+        ORDER BY work_year DESC
+    </select>
+</mapper>

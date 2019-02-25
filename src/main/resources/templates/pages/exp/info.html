@@ -1,0 +1,129 @@
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-row layui-col-space15">
+                <!--<div class="layui-col-md3">-->
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header"><h2 style="float: left">编辑经历</h2>
+                            <div style="float: right">
+                                <div class="layui-inline">
+                                    <a class="layui-btn layui-btn-sm" style="float: right;"
+                                            href="#/exp/list">
+                                        取消
+                                    </a>
+                                </div>
+                                <div class="layui-inline">
+                                    <button class="layui-btn layui-btn-sm" style="float: right;" id="u_save">
+                                        保存
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card-body">
+                            <form class="layui-form" lay-filter="u_cms" id="u_cms" style="margin-right: 200px">
+                                <input type="hidden" id="u_id">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">时间</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="u_expYear" readonly class="layui-input" id="u_expYear">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">内容</label>
+                                    <div class="layui-input-block">
+                                        <textarea name="u_content" class="layui-textarea" id="u_content" style="height:200px"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="none">
+    layui.config({
+        base: '/src/js/'
+    }).use([ 'jquery', 'layer','form','laydate'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            form = layui.form,
+            laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#u_expYear'
+            ,type: 'year'
+        });
+
+        form.render();
+
+        //fieldId有值则为编辑，无值为新增
+        if (fieldId) {
+            $.ajax({
+                type: "post",
+                url: "/exp/getInfo",
+                contentType: "application/json",
+                data: JSON.stringify(fieldId),
+                dataType: "json",
+                async: true,
+                cache: false,
+                success: function (data) {
+                    if (data.code === '0') {
+                        form.val("u_cms",{
+                           "u_expYear": data.data.expYear
+                            ,"u_content": data.data.content
+                        });
+                    } else {
+                        layer.msg(data.msg, {time: 1000});
+                    }
+                },
+                error: function () {
+                    layer.msg("数据异常，请刷新后再试", {time: 1000})
+                }
+            });
+        }
+
+        $("#u_save").on('click', function(){
+            var expYear = $("#u_expYear").val();
+            var content = $("#u_content").val();
+
+            if (!expYear || !content) {
+                layer.msg("必填项不能为空", {time:1000});
+            }
+
+            var dataParam={};
+            dataParam['expYear'] = expYear;
+            dataParam['content'] = content;
+
+            var url =  "/exp/insert";
+
+            if (fieldId) {
+                url =  "/exp/update";
+                dataParam['id'] = fieldId;
+            }
+
+            $.ajax({
+                type: "post",
+                url: url,
+                contentType: "application/json",
+                data: JSON.stringify(dataParam),
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data.code === '0') {
+                        layer.msg("保存成功", {time: 1000});
+                    } else {
+                        layer.msg(data.msg, {time: 1000});
+                    }
+                },
+                error: function () {
+                    layer.msg("数据异常，请刷新后再试", {time: 1000})
+                }
+            });
+        })
+    })
+
+</script>

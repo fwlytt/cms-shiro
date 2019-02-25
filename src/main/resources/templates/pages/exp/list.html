@@ -1,0 +1,115 @@
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-row layui-col-space15">
+                <!--<div class="layui-col-md3">-->
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header"><h2 style="float: left">经历</h2>
+                            <div style="float: right">
+                                <div class="layui-inline">
+                                    <a class="layui-btn layui-btn-sm" style="float: right;" href="#/exp/info">
+                                        <i class="layui-icon">&#xe654;</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card-body">
+                            <table id="cmsList" lay-filter="cmsList"></table>
+                            <div id="laypage"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detail"
+       href="#/exp/info" style="float: left">
+        <i class="layui-icon">&#xe702;</i>编辑
+    </a>
+    <a class="layui-btn layui-btn-xs" lay-event="delete"
+       style="float: left">
+        <i class="layui-icon">&#xe702;</i>删除
+    </a>
+</script>
+
+<script th:inline="none">
+    layui.config({
+        base: '/src/js/'
+    }).use(['jquery', 'layer', 'table'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            table = layui.table;
+
+        fieldId = '';
+
+        //列表实例
+        table.render({
+            method: 'post',
+            // done: function (res) {
+            //     console.log(res)
+            // },
+            elem: '#cmsList',
+            height: 'full-160',
+            url: '../../exp/getList', //数据接口
+            contentType: 'application/json',
+            page: true, //开启分页
+            id: "cmsList2",
+            autoSort: false, //禁用前端排序
+//            cellMinWidth: 120,
+            cols: [
+                [ //表头
+                    {field: 'expYear',  title: '时间'}
+                    ,{field: 'content',  title: '内容'}
+                    ,{title:'操作', toolbar: '#barDemo', width: 145}
+                ]
+            ]
+        });
+
+        $('#s_reload').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        //监听工具条
+        table.on('tool(cmsList)', function(obj){
+            if(obj.event === 'detail'){ //编辑
+                fieldId = obj.data.id;
+            } else if (obj.event === 'delete') { //删除
+                layer.confirm('是否确认删除该记录',{
+                    title: '删除记录',
+                    closeBtn: 0,
+                    offset: '20%',
+                    btn: ['确定', '取消']
+                }, function(index){
+                    $.ajax({
+                        type: "post",
+                        url: "/exp/delete",
+                        contentType: "application/json",
+                        data: JSON.stringify(obj.data.id),
+                        dataType: "json",
+                        cache: false,
+                        async: false,
+                        success: function (data) {
+                            if (data.code === '0') {
+                                layer.msg("删除成功",{time:1000},function () {
+                                    table.reload("cmsList2");
+                                });
+                            } else {
+                                layer.msg(data.msg,{time:1000});
+                            }
+                        }
+                    });
+                    layer.close(index);
+                }, function(index) {
+                    layer.close(index);
+                })
+            }
+            //禁用行点击事件
+            // obj.preventDefault();
+        });
+    });
+</script>
