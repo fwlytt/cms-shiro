@@ -12,12 +12,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping(value = "/show")
 public class ShowController {
 
     @Autowired
     private WorksService worksService;
+
+    @PostMapping(value = "/getWorkList")
+    public String getWorkList(){
+        Val<List<Map<String ,List<CmsWorks>>>> val = new Val<>();
+        List<Map<String ,List<CmsWorks>>> worksList = worksService.queryWorkListGroupByYear();
+        if (worksList.size() > 0) {
+            val.setData(worksList);
+            val.setInfo(BackCode.SUCCESS, "成功");
+        }else {
+            val.setInfo(BackCode.FAIL, "数据异常，请刷新后再试");
+        }
+        return JSON.toJSONString(val);
+    }
 
     @PostMapping(value = "/getWorkInfo")
     public String getWorkInfo(@RequestBody Integer id){

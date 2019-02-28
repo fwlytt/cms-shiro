@@ -24,6 +24,6 @@
     <where>
       status = '1'
     </where>
-    ORDER BY exp_year ASC
+    ORDER BY exp_year DESC
   </select>
 </mapper>

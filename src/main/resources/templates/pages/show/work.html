@@ -27,6 +27,8 @@
     <script type="text/javascript" th:src="@{/js/jquery-1.8.2.min.js}"></script>
     <![endif]-->
 
+    <script type="text/javascript" th:src="@{/js/jquery.lazyload.js?v=1.9.1}"></script>
+
     <script>
         $(document).ready(function () {
             !function () {
@@ -105,6 +107,8 @@
     <div class="main con">
         <div class="row margin-0">
             <div class="col-2 padding-0">
+
+                <!--年份-->
                 <div class="workTime" id="accordion">
                     <div class="fold">
                         <a id="prevY" href="javascript:;"></a>
@@ -125,17 +129,8 @@
                 </div>
             </div>
 
+            <!--作品-->
             <div class="col-10 padding-0" id="workCon">
-                <div  th:each="val:${vals}">
-                    <div th:each="data:${val}" th:id="${'page'+data.key}"  class="content">
-                        <div th:each="data:${val}" >
-                            <div th:each="d:${data.value}" class="work-info">
-                                <img th:src="${d.picUrl}" class="small" th:onclick="|enlarge(${d.id})|" />
-                                <p th:text="${d.title+','+d.content+','+d.picSize+','+d.workYear}"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -166,21 +161,65 @@
     // var picUrl = "../image/work01.jpg", title = '名称', content = '基础信息', picSize = '33cmX33cm', workYear = '2018';
 
     var workYears = $("#workYears").val();
-    workYears = workYears.replace("[","");
-    workYears = workYears.replace("]","");
-    var years= workYears.split(",");
-    var length  = years.length;
+    workYears = workYears.replace("[", "");
+    workYears = workYears.replace("]", "");
+    var years = workYears.split(",");
+    var length = years.length;
 
     var nowY = years[0], //作品最近一年
-        earlierY = years[length-1]; //作品最早一年
+        earlierY = years[length - 1]; //作品最早一年
+
+    /*---------------添加作品-------------*/
+    $.ajax({
+        type: "post",
+        url: "/show/getWorkList",
+        contentType: "application/json",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            if (data.code === '0') {
+                var list = data.data;    //list
+                for (var i in list) {
+                    for (var key in list[i]) {
+                        var workYearsCon = '';
+                        var workCon = '';
+
+                        for (var j in list[i][key]) {
+                            var d = list[i][key][j];
+                            workCon = workCon + ' <div class="work-info">\n' +
+                                '<img data-original="' + d.picUrl + '" class="lazy small" onclick="enlarge(' + d.id + ')" />\n' +
+                                '<p> ' + d.title + ',' + d.content + ',' + d.picSize + ',' + d.workYear + '</p>\n' +
+                                '</div>'
+
+                        }
+                        workYearsCon = '<div id="page' + key + '">' + workCon + '</div>';
+                        $('#workCon').append(workYearsCon);
+                    }
+                }
+
+                $("img.lazy").lazyload({effect: "fadeIn"});
+
+                // var list = data.data;    //list
+                // for (var i in list) {
+                //     for (var key in list[i]) {    //map key 
+                //         console.log(key);
+                //         console.log(list[i][key]);  //map value
+                //     }
+                // }
+            }
+        },
+        error: function () {
+            layer.msg("数据异常，请刷新后再试", {time: 1000})
+        }
+    });
 
     /*---------------时间轴-------------*/
 
     var workId = "";
 
     for (i = 0; i < length; i++) {
-        workId = "'page"+years[i].trim()+"'";
-        var workM = '<li onClick="goToByScroll('+workId+'); return false;"><a href="javascript:;">' + years[i].trim() + '</a></li>';//这里写个循环
+        workId = "'page" + years[i].trim() + "'";
+        var workM = '<li onClick="goToByScroll(' + workId + '); return false;"><a href="javascript:;">' + years[i].trim() + '</a></li>';//这里写个循环
         $('#years').append(workM);//添加年份时间轴
     }
 
@@ -241,7 +280,6 @@
         }
 
     }
-
 
     /*--------------作品内容--------------*/
     // var workCon = '<div class="work-info"><img src="'
@@ -315,7 +353,7 @@
             }
         });
     }
-    
+
     function fullS(obj) {
 
         // var src = $(obj).attr('src');
@@ -323,73 +361,73 @@
         $('.full-pic .small').attr('src', obj.picUrl);
         $('.full-pic .large').css('background-image', 'url(' + obj.picUrl + ')');
         $('.pic-info').html(' <div>\n' +
-            '            <p>名称：'+obj.title+'</p>\n' +
-            '            <p>简介：'+obj.content+'</p>\n' +
-            '            <p>时间：'+obj.workYear+'</p>\n' +
-            '            <p>尺寸：'+obj.picSize+'</p>\n' +
+            '            <p>名称：' + obj.title + '</p>\n' +
+            '            <p>简介：' + obj.content + '</p>\n' +
+            '            <p>时间：' + obj.workYear + '</p>\n' +
+            '            <p>尺寸：' + obj.picSize + '</p>\n' +
             '        </div>');
 
-            $('.full-screen').show();
+        $('.full-screen').show();
 
-            $('.small').load(function () {
+        $('.small').load(function () {
 
-                var fullH = $('.full-screen').height(),
-                    fullW = $('.full-screen').width(),
-                    fph = $('.full-pic .small').naturalHeight(),
-                    fpw = $('.full-pic .small').naturalWidth(),
-                    fsh = $('.full-pic .small').height();
+            var fullH = $('.full-screen').height(),
+                fullW = $('.full-screen').width(),
+                fph = $('.full-pic .small').naturalHeight(),
+                fpw = $('.full-pic .small').naturalWidth(),
+                fsh = $('.full-pic .small').height();
 
-                var diffull = fullH / fullW;
-                var diffp = fph / fpw;
+            var diffull = fullH / fullW;
+            var diffp = fph / fpw;
 
-                if (fpw < fullW && fph < fullH) {
+            if (fpw < fullW && fph < fullH) {
+                $('.full-pic .small').css({
+                    'width': fpw * 0.9,
+                    'height': 'auto'
+                });
+                $('.full-pic .magnify').css({
+                    'margin-top': ((fullH - fsh - 160) / 2) + 'px'
+
+                });
+            } else {
+                if (diffp <= diffull) {
                     $('.full-pic .small').css({
-                        'width': fpw * 0.9,
+                        'width': '100%',
                         'height': 'auto'
                     });
                     $('.full-pic .magnify').css({
                         'margin-top': ((fullH - fsh - 160) / 2) + 'px'
-
                     });
                 } else {
-                    if (diffp <= diffull) {
-                        $('.full-pic .small').css({
-                            'width': '100%',
-                            'height': 'auto'
-                        });
-                        $('.full-pic .magnify').css({
-                            'margin-top': ((fullH - fsh - 160) / 2) + 'px'
-                        });
-                    } else {
-                        $('.full-pic .small').css({
-                            'width': 'auto',
-                            'height': (fullH - 160) + 'px'
-                        });
-                        $('.full-pic .magnify').css({
-                            'margin-top': 'auto'
-                        });
-                    }
+                    $('.full-pic .small').css({
+                        'width': 'auto',
+                        'height': (fullH - 160) + 'px'
+                    });
+                    $('.full-pic .magnify').css({
+                        'margin-top': 'auto'
+                    });
                 }
+            }
 
-                $('.full-pic .pic-info > div').css({
-                    'width': '50%',
-                    'margin': 'auto'
-                });
+            $('.full-pic .pic-info > div').css({
+                'width': '50%',
+                'margin': 'auto'
+            });
 
-                $(document.body).css({
-                    "overflow-x": "hidden",
-                    "overflow-y": "hidden"
-                });
+            $(document.body).css({
+                "overflow-x": "hidden",
+                "overflow-y": "hidden"
+            });
 
-            })
-        }
+        })
+    }
 
-        function closeScreen() {
+    function closeScreen() {
         $('.full-screen').hide();
 
         $(document.body).css({
-            "overflow-x":"auto",
-            "overflow-y":"auto"
+            "overflow-x": "auto",
+            "overflow-y": "auto"
         });
     }
 </script>
