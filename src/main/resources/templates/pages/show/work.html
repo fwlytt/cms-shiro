@@ -144,11 +144,13 @@
         </div>
     </div>
     <div class="pic-info">
-        <div>
-            <p>名称：</p>
-            <p>简介：</p>
-            <p>时间：</p>
-            <p>尺寸：</p>
+        <div class="main">
+            <div>
+                <p>名称：</p>
+                <p>简介：</p>
+                <p>时间：</p>
+                <p>尺寸：</p>
+            </div>
         </div>
     </div>
     <div class="close" onclick="closeScreen()">X</div>
@@ -409,10 +411,10 @@
                 }
             }
 
-            $('.full-pic .pic-info > div').css({
-                'width': '50%',
-                'margin': 'auto'
-            });
+            // $('.full-pic .pic-info > div').css({
+            //     'width': '50%',
+            //     'margin': 'auto'
+            // });
 
             $(document.body).css({
                 "overflow-x": "hidden",
