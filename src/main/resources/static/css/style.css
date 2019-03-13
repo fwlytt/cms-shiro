@@ -198,8 +198,16 @@ p {
     margin: 0 auto;
 }
 
-.main .head {
+.head {
     padding: 30px 0;
+    background: #fff;
+}
+.fix .head{
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    z-index: 1002;
 }
 
 .clear {
@@ -270,11 +278,6 @@ a:hover, a:focus {
     border-bottom: 2px solid #81786e;
 }
 
-/*index*/
-.banner img, .ban img {
-    width: 100%;
-}
-
 /*******************************************************************************************************************************************************************************/
 .hide {
     display: none;
@@ -319,7 +322,7 @@ h4, h5 {
 }
 
 .article {
-    background-image: url("/images/article.jpg");
+    background-image: url("/image/article.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center top;
@@ -444,7 +447,7 @@ h4, h5 {
 
     /* 加载放大镜的图片 */
 
-    /*background: url("/images/work01.jpg") no-repeat;*/
+    /*background: url("/image/work01.jpg") no-repeat;*/
 
     background-repeat: no-repeat;
 
@@ -459,7 +462,9 @@ h4, h5 {
     position: relative;
     overflow: hidden;
 }
-
+.ban > img{
+    width: 100%;
+}
 .ban > div {
     position: absolute;
     top: 0;
@@ -470,10 +475,6 @@ h4, h5 {
 
 .ban .main {
     height: 100%;
-}
-
-#biography img {
-    opacity: 0.9;
 }
 
 #biography.ban .f-right {
@@ -509,7 +510,7 @@ h4, h5 {
 }
 
 #article.ban .f-left {
-    width: 42.6%;
+    min-width: 42.6%;
     height: 100%;
     margin-left: 2.5%;
 }
@@ -533,11 +534,12 @@ h4, h5 {
 }
 
 #article h5 {
-    text-align: center;
+    text-align: left;
+    padding-left: 8px;
 }
 #article p {
-    /*display: inline-block;*/
     display: block;
+    margin-right: 30px;
 }
 #article a {
     display: inline-block;
@@ -596,6 +598,7 @@ h4, h5 {
     right: 0;
     background: rgba(200, 200, 200, 0.9);
     display: none;
+    z-index: 1010;
 }
 
 .pic-info {
@@ -604,6 +607,16 @@ h4, h5 {
     bottom: 0;
     left: 0;
     right: 0;
+    padding: 10px 0;
+}
+
+.pic-info .main{
+    width: auto;
+    text-align: center;
+}
+.pic-info .main > div{
+    width: auto;
+    display: inline-block;
 }
 
 .full-pic {
@@ -621,20 +634,19 @@ h4, h5 {
 }
 
 .close {
-    line-height: 22px;
-    text-align: center;
-    background-color: transparent;
-    border: 2px solid #FFF;
-    color: #FFF;
-    font-size: 21px;
     height: 28px;
     width: 28px;
     opacity: 1;
+    background: url(/image/slide/closebtnB.png) center center no-repeat;
+    background-size: 28px;
     position: absolute;
     top: 2%;
     right: 2%;
 }
-
+.close:hover{
+    background: url(/image/slide/closebtnH.png) center center no-repeat;
+    background-size: 28px;
+}
 /*@media screen and (max-width: 1128px) {*/
 /*.menu a {*/
 /*margin-left: 30px;*/
@@ -712,4 +724,22 @@ h4, h5 {
 
     position: absolute;
     bottom: 1000%;
+}
+
+.sangar-slideshow-container > h5 {
+    display: block;
+    margin: 0;
+    color: #81786e;
+    height: 60px;
+    line-height: 30px;
+}
+
+.content:after, #works:after{
+    display: block;
+    content: '';
+    clear: both;
+}
+
+#article .arTitle p:last-child a {
+    display: none;
 }

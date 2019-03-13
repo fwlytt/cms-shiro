@@ -1,5 +1,5 @@
 /*
- * Lazy Load - jQuery plugin for lazy loading images
+ * Lazy Load - jQuery plugin for lazy loading image
  *
  * Copyright (c) 2007-2013 Mika Tuupola
  *
@@ -147,7 +147,7 @@
             update();
         });
 
-        /* With IOS5 force loading images when navigating with back button. */
+        /* With IOS5 force loading image when navigating with back button. */
         /* Non optimal workaround. */
         if ((/(?:iphone|ipod|ipad).*os 5/gi).test(navigator.appVersion)) {
             $window.bind("pageshow", function(event) {
@@ -159,7 +159,7 @@
             });
         }
 
-        /* Force initial check if images should appear. */
+        /* Force initial check if image should appear. */
         $(document).ready(function() {
             update();
         });

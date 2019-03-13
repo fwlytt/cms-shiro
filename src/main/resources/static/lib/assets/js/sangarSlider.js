@@ -151,7 +151,7 @@
         width : 850, // slideshow width
         height : 500, // slideshow height
         scaleSlide : false, // slider will scale to the container size
-        scaleImage : true, // images will scale to the slider size
+        scaleImage : true, // image will scale to the slider size
         fixedHeight : false,  // height will fixed on scale
         background: '#222222', // container background color, leave blank will set to transparent
         imageVerticalAlign : 'middle', // top, middle, bottom -- work only while scaleImage

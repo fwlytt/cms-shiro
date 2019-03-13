@@ -12,9 +12,11 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="keywords" content="孙得菁 DEJING SUN"/>
     <meta name="description" content="孙得菁的个人网站"/>
+    <link rel="shortcut icon" href="/image/favicon.jpg" type="image/x-icon"/>
     <title>孙得菁 DEJING SUN</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
     <link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/style.m.css}"/>
 
@@ -27,35 +29,33 @@
     <script type="text/javascript" th:src="@{/js/jquery-1.8.2.min.js}"></script>
     <![endif]-->
 
-    <script type="text/javascript" th:src="@{/js/jquery.lazyload.js?v=1.9.1}"></script>
-
     <script>
-        $(document).ready(function () {
-            !function () {
-//                var p = 0,t = 0;
-
-                var map = [], names = [], win = $(window);
-                $('.content').each(function (n) {
-                    map[n] = this.offsetTop;
-                    names[n] = $(this).attr('id');
-                });
-                win.on('scroll', function () {
-
-//                    p = win.scrollTop();
-//                    if (t < p) {//下滚} else {//上滚}
-//                    setTimeout(function () {
-//                        t = p;
-//                    }, 0);
-
-                    var i = 0;
-                    while (map[i++] <= win.scrollTop()) {
-                        $('.workTime li').removeClass("active");
-                        $('.workTime li').eq((i - 1)).addClass("active");
-                    }
-
-                })
-            }();
-        });
+//         $(document).ready(function () {
+//             !function () {
+// //                var p = 0,t = 0;
+//
+//                 var map = [], names = [], win = $(window);
+//                 $('.content').each(function (n) {
+//                     map[n] = this.offsetTop;
+//                     names[n] = $(this).attr('id');
+//                 });
+//                 win.on('scroll', function () {
+//
+// //                    p = win.scrollTop();
+// //                    if (t < p) {//下滚} else {//上滚}
+// //                    setTimeout(function () {
+// //                        t = p;
+// //                    }, 0);
+//
+//                     var i = 0;
+//                     while (map[i++] <= win.scrollTop()) {
+//                         $('.workTime li').removeClass("active");
+//                         $('.workTime li').eq((i - 1)).addClass("active");
+//                     }
+//
+//                 })
+//             }();
+//         });
 
         function goToByScroll(id) {
             $('html,body').animate({scrollTop: $("#" + id).offset().top}, 'slow');
@@ -64,7 +64,6 @@
         function workTime() {
             $(this).next("ol").html();
         }
-
 
         var hw = $('.head').width(),
             lw = $('.logo').width(),
@@ -80,35 +79,35 @@
 <input type="hidden" th:value="${years}" id="workYears">
 <div class="home">
     <div class="main">
-        <div class="head">
-            <div class="logo">
-                <a href="/pages/show/index/0">
-                    <img src="/images/sun.png"/>
-                </a>
-            </div>
-            <ol class="menu">
-                <li>
-                    <a href="#" class="cur">作品Work</a>
-                </li>
-                <li>
-                    <a href="/pages/show/index/biography">经历Biography</a>
-                </li>
-                <li>
-                    <a href="/pages/show/article/0">评论文章Article</a>
-                </li>
-                <li>
-                    <a href="/pages/show/index/biography">经历Biography</a>
-                </li>
-            </ol>
+        <div class="main">
+            <div class="head">
+                <div class="logo">
+                    <a href="/pages/show/index/0">
+                        <img src="/image/sun.png"/>
+                    </a>
+                </div>
+                <ol class="menu">
+                    <li>
+                        <a href="#" class="cur">作品Work</a>
+                    </li>
+                    <li>
+                        <a href="/pages/show/index/biography">经历Biography</a>
+                    </li>
+                    <li>
+                        <a href="/pages/show/article/0">评论文章Article</a>
+                    </li>
+                    <li>
+                        <a href="/pages/show/index/contact">联系方式Contact</a>
+                    </li>
+                </ol>
 
-            <div class="clear"></div>
+                <div class="clear"></div>
+            </div>
         </div>
     </div>
     <div class="main con">
         <div class="row margin-0">
             <div class="col-2 padding-0">
-
-                <!--年份-->
                 <div class="workTime" id="accordion">
                     <div class="fold">
                         <a id="prevY" href="javascript:;"></a>
@@ -131,6 +130,16 @@
 
             <!--作品-->
             <div class="col-10 padding-0" id="workCon">
+                <!--<div  th:each="val:${vals}">-->
+                    <!--<div th:each="data:${val}" th:id="${'page'+data.key}"  class="content">-->
+                        <!--<div th:each="data:${val}" >-->
+                            <!--<div th:each="d:${data.value}" class="work-info">-->
+                                <!--<img th:src="${d.picUrl}" class="" th:onclick="|enlarge(${d.id})|" />-->
+                                <!--<p th:text="${d.title+','+d.content+','+d.picSize+','+d.workYear}"></p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
     </div>
@@ -146,19 +155,22 @@
     <div class="pic-info">
         <div class="main">
             <div>
-                <p>名称：</p>
-                <p>简介：</p>
-                <p>时间：</p>
-                <p>尺寸：</p>
+                <p>名称：这里是作品名称</p>
+                <p>简介：这里是作品的简介</p>
+                <p>时间：2018</p>
+                <p>尺寸：33*33</p>
             </div>
         </div>
     </div>
-    <div class="close" onclick="closeScreen()">X</div>
+    <div class="close" onclick="closeScreen()"></div>
 </div>
 
 
 </body>
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+<script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+<script th:src="@{/js/jquery.lazyload.js?v=1.9.1}"></script>
 <script>
     // var picUrl = "../image/work01.jpg", title = '名称', content = '基础信息', picSize = '33cmX33cm', workYear = '2018';
 
@@ -170,50 +182,6 @@
 
     var nowY = years[0], //作品最近一年
         earlierY = years[length - 1]; //作品最早一年
-
-    /*---------------添加作品-------------*/
-    $.ajax({
-        type: "post",
-        url: "/show/getWorkList",
-        contentType: "application/json",
-        dataType: "json",
-        cache: false,
-        success: function (data) {
-            if (data.code === '0') {
-                var list = data.data;    //list
-                for (var i in list) {
-                    for (var key in list[i]) {
-                        var workYearsCon = '';
-                        var workCon = '';
-
-                        for (var j in list[i][key]) {
-                            var d = list[i][key][j];
-                            workCon = workCon + ' <div class="work-info">\n' +
-                                '<img data-original="' + d.picUrl + '" class="lazy small" onclick="enlarge(' + d.id + ')" />\n' +
-                                '<p> ' + d.title + ',' + d.content + ',' + d.picSize + ',' + d.workYear + '</p>\n' +
-                                '</div>'
-
-                        }
-                        workYearsCon = '<div id="page' + key + '">' + workCon + '</div>';
-                        $('#workCon').append(workYearsCon);
-                    }
-                }
-
-                $("img.lazy").lazyload({effect: "fadeIn"});
-
-                // var list = data.data;    //list
-                // for (var i in list) {
-                //     for (var key in list[i]) {    //map key 
-                //         console.log(key);
-                //         console.log(list[i][key]);  //map value
-                //     }
-                // }
-            }
-        },
-        error: function () {
-            layer.msg("数据异常，请刷新后再试", {time: 1000})
-        }
-    });
 
     /*---------------时间轴-------------*/
 
@@ -283,14 +251,88 @@
 
     }
 
-    /*--------------作品内容--------------*/
-    // var workCon = '<div class="work-info"><img src="'
-    //     + picUrl + '" class="small" onclick="fullS(this)"><p>'
-    //     + title + '，' + content + '，' + picSize + '，' + workYear + '</p></div>'; //当前年份下的作品
-    //
-    // var workY = '<div id="page' + workYear + '" class="content">' + workCon + '</div>'; //当前年份 div
-    //
-    // $('#workCon').append(workY);
+    /*---------------添加作品-------------*/
+    $.ajax({
+        type: "post",
+        url: "/show/getWorkList",
+        contentType: "application/json",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            if (data.code === '0') {
+                var list = data.data;    //list
+                for (var i in list) {
+                    for (var key in list[i]) {
+                        var workYearsCon = '';
+                        var workCon = '';
+
+                        for (var j in list[i][key]) {
+                            var d = list[i][key][j];
+                            // workCon = workCon + ' <div class="work-info">\n' +
+                            //     // '<img data-original="' + d.picUrl + '" class="lazy small" onclick="fullS(\''+d.picUrl+'\',\''+d.title+'\',\''+d.content+'\',\''+d.picSize+'\',\''+d.workYear+ '\')" />\n' +
+                            //     '<img data-original="' + d.picUrl + '" class="lazy" onclick="enlarge(' + d.id + ')" />\n' +
+                            //     '<p> ' + d.title + ',' + d.content + ',' + d.picSize + ',' + d.workYear + '</p>\n' +
+                            //     '</div>';
+
+                            workCon = workCon + ' <div class="work-info">\n' +
+                                // '<img data-original="' + d.picUrl + '" class="lazy small" onclick="fullS(\''+d.picUrl+'\',\''+d.title+'\',\''+d.content+'\',\''+d.picSize+'\',\''+d.workYear+ '\')" />\n' +
+                                '<img src="' + d.picUrl + '" onclick="enlarge(' + d.id + ')" />\n' +
+                                '<p> ' + d.title + ',' + d.content + ',' + d.picSize + ',' + d.workYear + '</p>\n' +
+                                '</div>';
+
+                            var ye = '2018';//作品年份
+                            var workId = "'page" + ye + "'";
+
+                        }
+                        workYearsCon = '<div id="page' + key + '" class="content">' + workCon + '</div>';
+                        $('#workCon').append(workYearsCon);
+                    }
+                }
+
+
+                // var list = data.data;    //list
+                // for (var i in list) {
+                //     for (var key in list[i]) {    //map key 
+                //         console.log(key);
+                //         console.log(list[i][key]);  //map value
+                //     }
+                // }
+
+                !function () {
+                    var map = [], names = [], win = $(window);
+                    $('.content').each(function (n) {
+                        map[n] = this.offsetTop;
+                        names[n] = $(this).attr('id');
+                    });
+                    win.on('scroll', function () {
+                        var i = 0;
+                        while (map[i++] <= win.scrollTop()) {
+                            $('.workTime li').removeClass("active");
+                            $('.workTime li').eq((i - 1)).addClass("active");
+                        }
+
+                    })
+                }();
+
+                $(".work-info img").each(function () {
+                    var w = $(this).naturalWidth(),
+                        ww = $(".main").width();
+                    $(this).parent('.work-info').css({
+                        "width": w / 2500 * ww,
+                        "margin-left": 'auto',
+                        "margin-right": 'auto'
+                    });
+                });
+
+
+                // //懒加载
+                // $("img.lazy").lazyload({effect: "fadeIn"});
+            }
+        },
+        error: function () {
+            layer.msg("数据异常，请刷新后再试", {time: 1000})
+        }
+    });
 
 </script>
 <script>
@@ -316,17 +358,6 @@
             }('natural' + prop, prop.toLowerCase()));
         }
     }(jQuery));
-
-
-    $(".work-info img").each(function () {
-        var w = $(this).naturalWidth(),
-            ww = $(".main").width();
-        $(this).parent('.work-info').css({
-            "width": w / 2500 * ww,
-            "margin-left": 'auto',
-            "margin-right": 'auto'
-        });
-    });
 
     //
     function addClass(obj) {
@@ -356,9 +387,19 @@
         });
     }
 
+    // function fullS(picUrl, title, content, picSize, workYear) {
+    //
+    //
+    //     $('.full-pic .small').attr('src', picUrl);
+    //     $('.full-pic .large').css('background-image', 'url(' + picUrl + ')');
+    //     $('.pic-info').html(' <div>\n' +
+    //         '            <p>名称：' + title + '</p>\n' +
+    //         '            <p>简介：' + content + '</p>\n' +
+    //         '            <p>时间：' + workYear + '</p>\n' +
+    //         '            <p>尺寸：' + picSize + '</p>\n' +
+    //         '        </div>');
     function fullS(obj) {
 
-        // var src = $(obj).attr('src');
 
         $('.full-pic .small').attr('src', obj.picUrl);
         $('.full-pic .large').css('background-image', 'url(' + obj.picUrl + ')');

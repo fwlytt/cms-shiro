@@ -57,7 +57,7 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
         // excludePathPatterns 用户排除拦截
         //registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").
         //        excludePathPatterns("/error","/doLogin","/toLogin", "/pages/show/**",
-        //                "/static/**","/css/**","/font/**","/images/**","/js/**","/lib/**");
+        //                "/static/**","/css/**","/font/**","/image/**","/js/**","/lib/**");
     }
 
 

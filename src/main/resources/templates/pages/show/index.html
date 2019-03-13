@@ -12,112 +12,137 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="keywords" content="孙得菁 DEJING SUN"/>
     <meta name="description" content="孙得菁的个人网站"/>
+    <link rel="shortcut icon" href="/image/favicon.jpg" type="image/x-icon"/>
     <title>孙得菁 DEJING SUN</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/lib/assets/css/sangarSlider.css}" media="all"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/lib/assets/themes/default/default.css}" media="all"/>
-    <link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/style.m.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/banner.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/assets/css/sangarSlider.css}" media="all">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/assets/themes/default/default.css}" media="all">
 
+    <!--banner-->
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/banner/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/banner/css/default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/banner/css/banner.css}">
+    <!--banner end-->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" media="screen"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.m.css}" media="screen"/>
 
     <!--[if !IE]> -->
     <script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
     <!-- <![endif]-->
 
+    <script type="text/javascript" th:src="@{/lib/banner/js/jquery-1.9.1.min.js}"></script>
+
     <!--[if IE]>
     <script type="text/javascript" th:src="@{/js/jquery-1.12.4.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery-1.8.2.min.js}"></script>
+
+    <script th:src="@{http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js}"></script>
     <![endif]-->
 
-    <script type="text/javascript" th:src="@{/js/jquery-1.8.2.min.js}"></script>
-
-    <script type="text/javascript" th:src="@{/lib/fullwidthbanner/jquery.banner.revolution.min.js}"></script>
-    <script type="text/javascript" th:src="@{/lib/fullwidthbanner/banner.js}"></script>
 </head>
 <body>
 <input type="hidden" th:value="${fieldId}" id="fieldId">
 <input type="hidden" th:value="${workYears}" id="workYears">
 <div class="home">
-    <div class="main">
+    <div class="fix">
         <div class="head">
-            <div class="logo">
-                <a href="/pages/show/index/0">
-                    <img src="/images/sun.png">
-                </a>
-            </div>
-            <ol class="menu">
-                <li>
-                    <a href="/pages/show/work/0">作品Work</a>
-                </li>
-                <li>
-                    <a href="#biography">经历Biography</a>
-                </li>
-                <li>
-                    <a href="/pages/show/article/0">评论文章Article</a>
-                </li>
-                <li>
-                    <a href="#contact">联系方式Contact</a>
-
-                </li>
-            </ol>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div id="wrapper">
-        <div class="fullwidthbanner-container">
-            <div class="fullwidthbanner">
-                <ul id="banner">
-                    <li th:each="val:${banners}"
-                        data-transition='transition' data-slotamount='15' data-masterspeed='300'
-                        th:onclick="'jumpTo('+${val.id}+')'">
-                        <img th:src="${val.picUrl}"/>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="" id="works">
-        <div class=" ">
             <div class="main">
-                <div class='sangar-slideshow-container' id='sangar-example'>
-                    <div class='sangar-content-wrapper' style='display:none;' id="sangar-content-wrapper">
-                        <div th:each="val:${works}" class='sangar-content'
-                             th:onclick="'jumpTo('+${val.id}+')'">
-                            <img th:src="${val.picUrl}"/>
+                <div class="logo">
+                    <img src="/image/sun.png"/>
+                </div>
+                <ol class="menu">
+                    <li>
+                        <a href="/pages/show/work/0">作品Work</a>
+                    </li>
+                    <li>
+                        <a href="#biography">经历Biography</a>
+                    </li>
+                    <li>
+                        <a href="/pages/show/article/0">评论文章Article</a>
+                    </li>
+                    <li>
+                        <a href="#contact">联系方式Contact</a>
+                    </li>
+                </ol>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" id="work">
+        <div id="slider1_container" class="banner_box">
+            <!-- Loading Screen -->
+            <div data-u="loading" style="position: absolute; top: 0; left: 0;">
+                <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block;
+		                top: 0; left: 0; width: 100%; height: 100%;">
+                </div>
+                <div style="position: absolute; display: block; background: url(/image/slide/loader.gif) no-repeat center center;
+		                top: 0; left: 0; width: 100%; height: 100%;">
+                </div>
+            </div>
+            <!-- Slides Container -->
+            <div id="banner" data-u="slides" class="banner_img">
+                <div>
+                    <img data-u="image" src="/image/pic-01.jpg" alt onclick="jumpTo(0)"/>
+                </div>
+                <div th:each="banner:${banners}">
+                    <img data-u="image" th:src="${banner.picUrl}" alt  th:onclick="'jumpTo('+${banner.id}+')'"/>
+                </div>
+            </div>
+            <div data-u="navigator" class="jssorb24">
+                <div data-u="prototype"></div>
+            </div>
+            <span data-u="arrowleft" class="jssora24l"></span>
+            <span data-u="arrowright" class="jssora24r"></span>
+        </div>
+
+        <div id="works">
+            <div>
+                <div class="main">
+                    <div class='sangar-slideshow-container' id='sangar-example'>
+                        <h5>作品 Work</h5>
+                        <div class='sangar-content-wrapper' style='display:none;' id="sangar-content-wrapper">
+                            <div th:each="val:${works}" class='sangar-content'
+                                 th:onclick="'jumpTo('+${val.id}+')'">
+                                <img th:src="${val.picUrl}"/>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="ban" id="biography">
-        <img src="/images/pic-02.jpg"/>
+
+    <div class="ban content" id="biography">
+        <img src="/image/pic-02.jpg"/>
         <div>
             <div class="f-right">
                 <div class="dis-table f-left">
                     <div class="dis-cell">
-                        <span>经历 Biography</span>
-                        <ul>
-                            <li th:each="val:${exps}">
-                                <span th:text="${val.expYear + '-  '+ val.content}">expYear</span>
-                            </li>
-                            <li><span>......</span></li>
-                        </ul>
+                        <div class="bioBox">
+                            <span>经历 Biography</span>
+                            <ul>
+                                <li th:each="val:${exps}">
+                                    <span th:text="${val.expYear + '-  '+ val.content}"></span>
+                                </li>
+                                <li><span>......</span></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="ban" id="article">
-        <img src="/images/pic-03.jpg"/>
+    <div class="ban content" id="article">
+        <img src="/image/pic-03.jpg"/>
         <div>
             <div class="f-left">
                 <div class="dis-table">
                     <div class="dis-cell">
                         <div class="arTitle">
-                        <h5>评论文章 Article</h5>
+                            <h5>评论文章 Article</h5>
                             <p th:each="val:${articles}">
                                 <a th:href="${'/pages/show/article/'+val.id}"
                                    th:text="${val.title+'——'+val.author}">
@@ -129,8 +154,8 @@
             </div>
         </div>
     </div>
-    <div class="ban" id="contact">
-        <img src="/images/pic-04.jpg"/>
+    <div class="ban content" id="contact">
+        <img src="/image/pic-04.jpg"/>
         <div>
             <div class="f-right">
                 <div class="dis-table">
@@ -151,29 +176,64 @@
     };
 
     /*-------------------banner---------------------------------------*/
-    var banhref = '"/pages/show/work/0"', //banner图片链接
-        bansrc = '/images/pic-01.jpg',    //banner图片路径f
-        banner = "<li data-transition='transition' data-slotamount='15' data-masterspeed='300' onclick='window.location.href=" + banhref + "'><img src='" + bansrc + "'/></li>";
+    // var banhref = '/pages/show/work/', //banner图片链接
+    //     bansrc = '/image/pic-01.jpg',    //banner图片路径
+    //     banner = '<div><img data-u="image" src="' + bansrc + '" alt onclick="window.location.href=\'' + banhref + '0\'" /></div>';
+    // $('#banner').append(banner);
 
-    //    $('#banner').append(banner);
-    //    $('#banner').append(banner);
-    //    $('#banner').append(banner);
 
+    // $.ajax({
+    //     type: "post",
+    //     url: "/show/getBannerList",
+    //     contentType: "application/json",
+    //     dataType: "json",
+    //     cache: false,
+    //     success: function (data) {
+    //         if (data.code === '0') {
+    //             var list = data.data;
+    //             for (var i in list) {
+    //                 $('#banner').append('<div><img data-u="image" src="' + list[i].picUrl + '" ' +
+    //                     'alt onclick="window.location.href=\'' + banhref + list[i].id + '\'" /></div>');
+    //             }
+    //         }
+    //     }, error: function () {
+    //         layer.msg("数据异常，请刷新后再试", {time: 1000})
+    //     }
+    // });
 
     /*-------------------work---------------------------------------*/
-    var imghref = '"/pages/show/work/0.html"', //作品图片链接
-        imgsrc = '/images/work01.jpg',    //图片路径
-        imgn = 5,//添加的作品图片个数
-        workimg = "<div class='sangar-content' onclick='window.location.href=" + imghref + "'><img src='" + imgsrc + "'/></div>";
+    var imghref = '/pages/show/work/', //作品图片链接
+        imgsrc = '/image/work01.jpg',    //图片路径
+        workimg = '<div class="sangar-content" onclick="window.location.href=\'' + imghref + '\'"><img src="' + imgsrc + '"/></div>';
 
-    //    $('#sangar-content-wrapper').append(workimg);
-    //    $('#sangar-content-wrapper').append(workimg);
-    //    $('#sangar-content-wrapper').append(workimg);
-    //    $('#sangar-content-wrapper').append(workimg);
-    //    $('#sangar-content-wrapper').append(workimg);
+    // $('#sangar-content-wrapper').append(workimg);
+
+    // $.ajax({
+    //     type: "post",
+    //     url: "/show/getHomeWorkList",
+    //     contentType: "application/json",
+    //     dataType: "json",
+    //     cache: false,
+    //     success: function (data) {
+    //         if (data.code === '0') {
+    //             var list = data.data;
+    //             for (var i in list) {
+    //                 $('#sangar-content-wrapper').append('<div class="sangar-content" ' +
+    //                     'onclick="window.location.href=\'' + imghref + list[i].id + '\'"><img src="' + list[i].picUrl + '"/></div>');
+    //             }
+    //         }
+    //     }, error: function () {
+    //         layer.msg("数据异常，请刷新后再试", {time: 1000})
+    //     }
+    // });
 
 </script>
-
+<!--*---------------------banner---------------------*-->
+<script th:src="@{/lib/banner/js/sidebar/jquery.menu-aim.js}"></script>
+<!--<script src="../js/sidebar/main.js"></script> &lt;!&ndash; Resource jQuery &ndash;&gt;-->
+<script type="text/javascript" th:src="@{/lib/banner/js/jssor.slider.mini.js}"></script>
+<!--*---------------------banner end---------------------*-->
+<!--*---------------------work---------------------*-->
 <script type="text/javascript" th:src="@{/lib/assets/js/jquery.touchSwipe.min.js}"></script>
 <script type="text/javascript" th:src="@{/lib/assets/js/imagesloaded.min.js}"></script>
 <!-- jQuery Sangar Slider -->
@@ -191,10 +251,199 @@
 <script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarResetSlider.js}"></script>
 <script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider/sangarTextbox.js}"></script>
 <script type="text/javascript" th:src="@{/lib/assets/js/sangarSlider.js}"></script>
+<!--*---------------------work end---------------------*-->
+
 <script type='text/javascript'>
     jQuery(document).ready(function ($) {
+
+        var top = $('.head').height();
+//-----------------------header-----------------------
+        if ($(window).width() <= 750) {
+            $('.fix').height(top);
+        } else {
+            $('.fix').height(top + 60);
+        }
+
+        $('.menu a').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                var $target = $(this.hash);
+                $target = $target.length && $target || $('[name=' + this.hash.slice(1) + ']');
+                if ($target.length) {
+                    var targetOffset = $target.offset().top - (top + 60);
+
+                    if ($(window).width() <= 750) {
+                        targetOffset = $target.offset().top - top;
+                    }
+
+                    $('html,body').animate({
+                            scrollTop: targetOffset
+                        },
+                        1000);
+                    $(this).addClass('cur');
+                    return false;
+                }
+            }
+        });
+
+        $(window).on('scroll', function () {
+            $('.menu a').removeAttr("class");
+        });
+//-----------------------header end-----------------------
+
+//-----------------------banner-----------------------
+        var transitions_effect = [
+            {
+                $Duration: 1600,
+                x: -0.2,
+                $Delay: 40,
+                $Cols: 12,
+                $During: {$Left: [0.4, 0.6]},
+                $SlideOut: true,
+                $Formation: $JssorSlideshowFormations$.$FormationStraight,
+                $Easing: {$Left: $JssorEasing$.$EaseInOutExpo, $Opacity: $JssorEasing$.$EaseInOutQuad},
+                $Assembly: 260,
+                $Opacity: 2,
+                $Outside: true,
+                $Round: {$Top: 0.5},
+                $Brother: {
+                    $Duration: 1000,
+                    x: 0.2,
+                    $Delay: 40,
+                    $Cols: 12,
+                    $Formation: $JssorSlideshowFormations$.$FormationStraight,
+                    $Assembly: 1028,
+                    $Easing: {$Left: $JssorEasing$.$EaseInOutExpo, $Opacity: $JssorEasing$.$EaseInOutQuad},
+                    $Opacity: 2,
+                    $Round: {$Top: 0.5}
+                }
+            },
+            {
+                $Duration: 1600,
+                x: 1,
+                $Rows: 2,
+                $ChessMode: {$Row: 3},
+                $Easing: {$Left: $JssorEasing$.$EaseInOutQuart, $Opacity: $JssorEasing$.$EaseLinear},
+                $Opacity: 2,
+                $Brother: {
+                    $Duration: 1600,
+                    x: -1,
+                    $Rows: 2,
+                    $ChessMode: {$Row: 3},
+                    $Easing: {$Left: $JssorEasing$.$EaseInOutQuart, $Opacity: $JssorEasing$.$EaseLinear},
+                    $Opacity: 2
+                }
+            },
+            {
+                $Duration: 1500,
+                x: 0.5,
+                $Cols: 2,
+                $ChessMode: {$Column: 3},
+                $Easing: {$Left: $JssorEasing$.$EaseInOutCubic},
+                $Opacity: 2,
+                $Brother: {$Duration: 1500, $Opacity: 2}
+            },
+            {
+                $Duration: 1400,
+                x: 0.25,
+                $Zoom: 1.5,
+                $Easing: {$Left: $JssorEasing$.$EaseInWave, $Zoom: $JssorEasing$.$EaseInSine},
+                $Opacity: 2,
+                $ZIndex: -10,
+                $Brother: {
+                    $Duration: 1400,
+                    x: -0.25,
+                    $Zoom: 1.5,
+                    $Easing: {$Left: $JssorEasing$.$EaseInWave, $Zoom: $JssorEasing$.$EaseInSine},
+                    $Opacity: 2,
+                    $ZIndex: -10
+                }
+            }
+        ];
+
+        var options = {
+            $FillMode: 1,
+            //在幻灯片中填充图像的方式，0拉伸，1包含（保持纵横比并放入所有内部幻灯片），2封面（保持纵横比和覆盖整个幻灯片），4实际尺寸，5包含大图像，实际尺寸为小 图像，默认值为0
+            $AutoPlay: true,
+            //是否自动播放，要启用幻灯片放映，此选项必须设置为true，默认值为false
+            $AutoPlayInterval: 5000,
+            //如果滑块自动播放，则自上次停止以来下一张幻灯片的间隔（以毫秒为单位），默认值为3000
+            $PauseOnHover: 1,
+            //如果滑块是自动播放，是否暂停鼠标，0暂停，1暂停桌面，2暂停触摸设备，3暂停桌面和触摸设备，4冻结桌面，8冻结触摸设备，12冻结 桌面和触摸设备，默认值为1
+
+            $ArrowKeyNavigation: true,
+            //允许键盘（箭头键）导航与否，默认值为false
+            $SlideEasing: $JssorEasing$.$EaseOutQuint,
+            //指定从左到右的easing动画
+            $SlideDuration: 1200,
+            //幻灯片的默认持续时间（滑动）以毫秒为单位，默认值为500
+            $MinDragOffsetToSlide: 20,
+            //触发滑动的最小拖动偏移，默认值为20
+
+            //$SlideWidth: 600,   //每个幻灯片的宽度（以像素为单位），默认值为“幻灯片”容器的宽度
+            //$SlideHeight: 300,  //每个幻灯片的高度（以像素为单位），默认值为“幻灯片”容器的高度
+            $SlideSpacing: 0,
+            //每个幻灯片之间的空格（以像素为单位），默认值为0
+            $DisplayPieces: 1,
+            //要显示的片段数（如果将值设置为大于1，将禁用幻灯片显示），默认值为1
+            $ParkingPosition: 0,
+            //停放幻灯片的偏移位置（此选项仅在禁用幻灯片放映时适用），默认值为0。
+            $UISearchMode: 1,
+            //搜索UI组件（幻灯片容器，加载屏幕，导航器容器，箭头导航器容器，缩略图导航器容器等）的方式（0 parellel，1递归，默认值为1）。
+            $PlayOrientation: 1,
+            //播放幻灯片的方向（自动播放，导航），1水平，2垂直，5水平倒退，6垂直倒退，默认值为1
+            $DragOrientation: 1,
+            //拖动滑动的方向，0无拖动，1 horizental，2垂直，3 either，默认值为1（注意当$ DisplayPieces大于1时，$DragOrientation应与$PlayOrientation相同，或 parking position不为0）
+
+            $SlideshowOptions: {//指定如何设置动画的选项
+
+                $Class: $JssorSlideshowRunner$,
+                //[Required] 用于创建实例以设置动画标题的类
+                $Transitions: transitions_effect,
+                //一个slideshow过渡动画的数组。
+                $TransitionsOrder: 1,
+                //slideshow过渡动画的方式。1: Sequence, 0: Random。
+                $ShowLink: true
+            },
+
+            $BulletNavigatorOptions: {//[Optional] Options to specify and enable navigator or not
+                $Class: $JssorBulletNavigator$,                       //[Required] Class to create navigator instance
+                $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+                $AutoCenter: 1,                                 //[Optional] Auto center navigator in parent container, 0 None, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+                $Steps: 1,                                      //[Optional] Steps to go for each navigation request, default value is 1
+                $Lanes: 1,                                      //[Optional] Specify lanes to arrange items, default value is 1
+                $SpacingX: 8,                                   //[Optional] Horizontal space between each item in pixel, default value is 0
+                $SpacingY: 8,                                   //[Optional] Vertical space between each item in pixel, default value is 0
+                $Orientation: 1                                 //[Optional] The orientation of the navigator, 1 horizontal, 2 vertical, default value is 1
+            },
+
+            $ArrowNavigatorOptions: {                       //[Optional] Options to specify and enable arrow navigator or not
+                $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
+                $ChanceToShow: 1,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+                $AutoCenter: 2,                                 //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+                $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
+            }
+        };
+
+        var jssor_slider1 = new $JssorSlider$("slider1_container", options);
+
+        //responsive code begin
+        //you can remove responsive code if you don't want the slider scales while window resizes
+        function ScaleSlider() {
+            var bodyWidth = document.body.clientWidth;
+            if (bodyWidth)
+                jssor_slider1.$ScaleWidth(Math.min(bodyWidth, 1920));
+            else
+                window.setTimeout(ScaleSlider, 30);
+        }
+
+        ScaleSlider();
+//-----------------------banner end-----------------------
+
+//-----------------------work-----------------------
         var workYears = $("#workYears").val();
+        console.log("workYears:"+workYears);
         var yearList = JSON.parse(workYears);
+        console.log("yearList:"+yearList);
         var yearSize = workYears.split(",");
 
         var main = $('.main').eq(0).width(), height, pcWidth;
@@ -228,39 +477,51 @@
             'line-height': height + 'px'
         });
 
-        $('.sangar-slideshow-container').css('margin', height / 2 + 'px auto');
+//        $('.sangar-slideshow-container').css({
+//            'margin': height / 2 + 'px auto'
+//        });
 
-        bioC();
+        $('#works').css({
+            'padding': height / 2 + 'px 0'
+        });
 
-        function bioC() {
-            var imgH = $('#biography').height(),
-                bioH = $('#biography .bioBox').height(),
-                aimgH = $('#article').height(),
+        var wh = $(".sangar-wrapper").width() + 60;
+        $('#works>div').height(wh);
+//-----------------------work end-----------------------
+
+//-----------------------article-----------------------
+        var widthData = new Array();//对象数组
+
+        $('#article .arTitle p').each(function (i) {//遍历
+            widthData.push($(this).width());
+        });
+
+        widthData.sort(function (value1, value2) {//数组排序
+            return value1 - value2;
+        });
+        //    alert(widthData[widthData.length-1] +1);//最大值
+        //    alert(widthData[0]);//最小
+
+        $('#article p').css('width', widthData[widthData.length - 1] + 1 + 'px');
+
+
+        function artC() {
+            var aimgH = $('#article').height(),
                 artH = $('#article .arTitle').height();
-            if (imgH < bioH) {
-                $('#biography > img').css({
-                    'height': bioH + 20 + 'px',
-                    'width': 'auto'
-                });
-            } else {
-                $('#biography > img').css({
-                    'height': 'auto',
-                    'width': '100%'
-                });
-            }
-
             if (artH <= aimgH) {
                 $('#article p').css('display', 'block');
             } else {
                 $('#article p').css('display', 'inline-block');
+                $('#article > img').css('opacity', '0.9');
             }
         }
 
-
         window.onresize = function () {
-            bioC();
+            artC();
         };
 
+        artC();
+//-----------------------article end-----------------------
         var fieldId = $("#fieldId").val();
         if (fieldId && fieldId != 0) {
             window.location.href = '#' + fieldId;

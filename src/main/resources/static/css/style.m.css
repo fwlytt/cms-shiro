@@ -4,7 +4,7 @@
     }
 }
 
-@media screen and (max-width: 995px) {
+@media screen and (max-width: 992px) {
     .logo {
         margin-bottom: 15px;
     }
@@ -56,6 +56,10 @@
         padding: 10px;
         margin: 0 15px;
     }
+
+    .article {
+        background-position: left 60px;
+    }
 }
 
 @media screen and (max-width: 750px) {
@@ -68,7 +72,7 @@
         font-size: 16px;
     }
 
-    .main .head {
+    .head {
         padding: 0;
     }
 
@@ -112,6 +116,21 @@
         margin-bottom: 30px;
     }
 
+    #biography.ban > div {
+        position: inherit;
+    }
+
+    #biography.ban .f-right {
+        width: 100%;
+        margin: auto;
+        text-align: justify;
+        background: url("/image/dt2.jpg") no-repeat center;
+        background-size: 100% 100%;
+    }
+
+    #biography.ban .f-right .dis-table.f-left {
+        float: none;
+    }
 
     #biography.ban .f-right .dis-table .dis-cell > span {
         font-size: 14px;
@@ -120,8 +139,7 @@
     #biography.ban li {
         padding-left: 40px;
         font-size: 12px;
-
-        line-height: 1.2;
+        line-height: 1.5;
         margin: 10px 0;
     }
 
@@ -133,16 +151,32 @@
         font-size: 12px;
 
     }
+
     #contact p {
         margin: 10px 0;
+    }
+
+    #article .arTitle p a {
+        display: none;
+    }
+
+    #article .arTitle p:nth-child(2) a, #article .arTitle p:nth-child(3) a, #article .arTitle p:last-child a {
+        display: inline-block;
+    }
+
+    .close {
+        height: 20px;
+        width: 20px;
+        background-size: 20px;
+    }
+
+    .close:hover {
+        background-size: 20px;
     }
 
 }
 
 @media screen and (max-width: 375px) {
-    #biography img {
-        margin-left: -25%;
-    }
     #contact p {
         margin: 6px 0;
     }

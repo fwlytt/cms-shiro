@@ -22,6 +22,32 @@ public class ShowController {
     @Autowired
     private WorksService worksService;
 
+    @PostMapping(value = "/getBannerList")
+    public String getBannerList(){
+        Val <List<CmsWorks>> val = new Val<>();
+        List<CmsWorks> list = worksService.queryBannerList();
+        if (list.size() > 0) {
+            val.setData(list);
+            val.setInfo(BackCode.SUCCESS, "成功");
+        }else {
+            val.setInfo(BackCode.FAIL, "数据异常，请刷新后再试");
+        }
+        return JSON.toJSONString(val);
+    }
+
+    @PostMapping(value = "/getHomeWorkList")
+    public String getHomeWorkList(){
+        Val <List<CmsWorks>> val = new Val<>();
+        List<CmsWorks> list = worksService.queryHomeShowList();
+        if (list.size() > 0) {
+            val.setData(list);
+            val.setInfo(BackCode.SUCCESS, "成功");
+        }else {
+            val.setInfo(BackCode.FAIL, "数据异常，请刷新后再试");
+        }
+        return JSON.toJSONString(val);
+    }
+
     @PostMapping(value = "/getWorkList")
     public String getWorkList(){
         Val<List<Map<String ,List<CmsWorks>>>> val = new Val<>();

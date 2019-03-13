@@ -1,0 +1,98 @@
+.banner_box {
+    position: relative;
+    margin: 0 auto;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 817px;
+    overflow: hidden;
+    background: url(/image/dt3.jpg) center center no-repeat;
+    background-size: 100% 100%;
+}
+
+.banner_img {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 817px;
+    overflow: hidden;
+}
+
+/* Bullet Navigator Style */
+
+.jssorb24 {
+    position: absolute;
+    bottom: 26px;
+    left: 6px;
+}
+
+.jssorb24 div, .jssorb24 div:hover, .jssorb24 .av {
+    position: absolute;
+    /* size of bullet elment */
+    width: 19px;
+    height: 19px;
+    text-align: center;
+    line-height: 19px;
+    color: white;
+    font-size: 12px;
+    background: url(../img/b24.png) no-repeat;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.jssorb24 div {
+    background-position: -5px -5px;
+}
+
+.jssorb24 div:hover, .jssorb24 .av:hover {
+    background-position: -35px -5px;
+}
+
+.jssorb24 .av {
+    background-position: -65px -5px;
+}
+
+.jssorb24 .dn, .jssorb24 .dn:hover {
+    background-position: -95px -5px;
+}
+
+/* Arrow Navigator Style */
+
+.jssora24l, .jssora24r {
+    display: block;
+    position: absolute;
+    /* size of arrow element */
+    width: 40px;
+    height: 50px;
+    cursor: pointer;
+    background: url(../img/a24.png) no-repeat;
+    overflow: hidden;
+}
+
+.jssora24l {
+    background-position: -10px -35px;
+    top: 123px; left: 0px;
+}
+
+.jssora24r {
+    background-position: -70px -35px;
+    top: 123px; right: 0px;
+}
+
+.jssora24l:hover {
+    background-position: -130px -35px;
+}
+
+.jssora24r:hover {
+    background-position: -190px -35px;
+}
+
+.jssora24l.jssora24ldn {
+    background-position: -250px -35px;
+}
+
+.jssora24r.jssora24rdn {
+    background-position: -310px -35px;
+}
