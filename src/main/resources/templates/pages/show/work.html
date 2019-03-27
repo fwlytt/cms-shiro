@@ -259,7 +259,9 @@
         dataType: "json",
         cache: false,
         success: function (data) {
+            console.log(0);
             if (data.code === '0') {
+                console.log(1);
                 var list = data.data;    //list
                 for (var i in list) {
                     for (var key in list[i]) {
@@ -267,6 +269,7 @@
                         var workCon = '';
 
                         for (var j in list[i][key]) {
+                            console.log(2);
                             var d = list[i][key][j];
                             // workCon = workCon + ' <div class="work-info">\n' +
                             //     // '<img data-original="' + d.picUrl + '" class="lazy small" onclick="fullS(\''+d.picUrl+'\',\''+d.title+'\',\''+d.content+'\',\''+d.picSize+'\',\''+d.workYear+ '\')" />\n' +
@@ -277,12 +280,12 @@
                             workCon = workCon + ' <div class="work-info">\n' +
                                 // '<img data-original="' + d.picUrl + '" class="lazy small" onclick="fullS(\''+d.picUrl+'\',\''+d.title+'\',\''+d.content+'\',\''+d.picSize+'\',\''+d.workYear+ '\')" />\n' +
                                 '<img src="' + d.picUrl + '" onclick="enlarge(' + d.id + ')" />\n' +
-                                '<p> ' + d.title + ',' + d.content + ',' + d.picSize + ',' + d.workYear + '</p>\n' +
+                                '<p> ' + d.title + ',' + d.material + ',' + d.picSize + ',' + d.content + '</p>\n' +
                                 '</div>';
 
                             var ye = '2018';//作品年份
                             var workId = "'page" + ye + "'";
-
+                            console.log(2);
                         }
                         workYearsCon = '<div id="page' + key + '" class="content">' + workCon + '</div>';
                         $('#workCon').append(workYearsCon);
@@ -329,8 +332,11 @@
                 // $("img.lazy").lazyload({effect: "fadeIn"});
             }
         },
-        error: function () {
-            layer.msg("数据异常，请刷新后再试", {time: 1000})
+        error:function(data,type, err){
+            console.log("ajax错误类型："+type);
+
+            console.log('error:'+err);
+            // layer.msg("数据异常，请刷新后再试", {time: 1000})
         }
     });
 
