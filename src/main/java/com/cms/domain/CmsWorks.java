@@ -13,7 +13,7 @@ public class CmsWorks {
      * 作品年代
      */
     @Column(name = "work_year")
-    private String workYear;
+    private Integer workYear;
 
     /**
      * 标题
@@ -24,6 +24,11 @@ public class CmsWorks {
      * 内容
      */
     private String content;
+
+    /**
+     * 材质
+     */
+    private String material;
 
     /**
      * 图片尺寸
@@ -77,7 +82,7 @@ public class CmsWorks {
      *
      * @return work_year - 作品年代
      */
-    public String getWorkYear() {
+    public Integer getWorkYear() {
         return workYear;
     }
 
@@ -86,8 +91,8 @@ public class CmsWorks {
      *
      * @param workYear 作品年代
      */
-    public void setWorkYear(String workYear) {
-        this.workYear = workYear == null ? null : workYear.trim();
+    public void setWorkYear(Integer workYear) {
+        this.workYear = workYear;
     }
 
     /**
@@ -240,5 +245,13 @@ public class CmsWorks {
 
     public void setBannerRank(Integer bannerRank) {
         this.bannerRank = bannerRank;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material == null ? null : material.trim();
     }
 }

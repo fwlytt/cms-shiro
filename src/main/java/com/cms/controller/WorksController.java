@@ -3,7 +3,6 @@ package com.cms.controller;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.cms.domain.CmsWorks;
-import com.cms.domain.Stock;
 import com.cms.domain.base.BackCode;
 import com.cms.domain.base.Page;
 import com.cms.domain.base.Val;
@@ -49,7 +48,7 @@ public class WorksController {
         //PageHelper.startPage(page, limit);
         List<CmsWorks> list = worksService.queryList(page.getKey());
         if (list != null && list.size() > 0) {
-            PageInfo<Stock> info = new PageInfo(list);
+            PageInfo<CmsWorks> info = new PageInfo(list);
             val.setData(list);
             val.setCount(info.getTotal());
             val.setInfo(BackCode.SUCCESS, "成功");
@@ -80,7 +79,7 @@ public class WorksController {
         Val val = new Val();
         if (param == null) {
             val.setInfo(BackCode.FAIL, "数据异常,请刷新后再试");
-        } else if (StringUtils.isEmpty(param.getWorkYear()) ||
+        } else if (param.getWorkYear() == null ||
                 StringUtils.isEmpty(param.getPicUrl())) {
             val.setInfo(BackCode.FAIL, "必填项不能为空");
         }else if (FieldUtils.YES.equals(param.getHomeShow()) &&
@@ -114,7 +113,7 @@ public class WorksController {
         Val val = new Val();
         if (param == null || param.getId() == null) {
             val.setInfo(BackCode.FAIL, "数据异常,请刷新后再试");
-        } else if (StringUtils.isEmpty(param.getWorkYear())) {
+        } else if (param.getWorkYear() == null) {
             val.setInfo(BackCode.FAIL, "必填项不能为空");
         } else if (FieldUtils.YES.equals(param.getHomeShow()) &&
                 worksService.countHomeShowByYear(param) > 0) {

@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=0"/>-->
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=0"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -20,67 +18,23 @@
     <link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/style.m.css}"/>
 
-    <!--[if !IE]> -->
-    <script type="text/javascript" th:src="@{/js/jquery-2.1.4.min.js}"></script>
-    <!-- <![endif]-->
+    <script type="text/javascript" th:src="@{/js/jquery-1.11.0.min.js}"></script>
 
     <!--[if IE]>
-    <script type="text/javascript" th:src="@{/js/jquery-1.12.4.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery-1.8.2.min.js}"></script>
     <![endif]-->
 
-    <script>
-//         $(document).ready(function () {
-//             !function () {
-// //                var p = 0,t = 0;
-//
-//                 var map = [], names = [], win = $(window);
-//                 $('.content').each(function (n) {
-//                     map[n] = this.offsetTop;
-//                     names[n] = $(this).attr('id');
-//                 });
-//                 win.on('scroll', function () {
-//
-// //                    p = win.scrollTop();
-// //                    if (t < p) {//下滚} else {//上滚}
-// //                    setTimeout(function () {
-// //                        t = p;
-// //                    }, 0);
-//
-//                     var i = 0;
-//                     while (map[i++] <= win.scrollTop()) {
-//                         $('.workTime li').removeClass("active");
-//                         $('.workTime li').eq((i - 1)).addClass("active");
-//                     }
-//
-//                 })
-//             }();
-//         });
-
-        function goToByScroll(id) {
-            $('html,body').animate({scrollTop: $("#" + id).offset().top}, 'slow');
-        }
-
-        function workTime() {
-            $(this).next("ol").html();
-        }
-
-        var hw = $('.head').width(),
-            lw = $('.logo').width(),
-            mw = $('.menu').width();
-        $('.logo').width(hw / 6);
-        $('.menu li').width(hw / 6);
-
-    </script>
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.js}"></script>
+    <![endif]-->
 
 </head>
 <body>
-<!--<input type="hidden" value="[2018]" id="workYears">-->
 <input type="hidden" th:value="${years}" id="workYears">
 <div class="home">
-    <div class="main">
-        <div class="main">
-            <div class="head">
+    <div class="fix">
+        <div class="head">
+            <div class="main">
                 <div class="logo">
                     <a href="/pages/show/index/0">
                         <img src="/image/sun.png"/>
@@ -100,20 +54,16 @@
                         <a href="/pages/show/index/contact">联系方式Contact</a>
                     </li>
                 </ol>
-
                 <div class="clear"></div>
             </div>
         </div>
     </div>
+
     <div class="main con">
         <div class="row margin-0">
             <div class="col-2 padding-0">
-                <div class="workTime" id="accordion">
-                    <div class="fold">
-                        <a id="prevY" href="javascript:;"></a>
-                        <!--2018-2015-->
-                    </div>
-                    <div>
+                <div class="workTime" id="accordion" dir="rtl">
+                    <div dir="ltr">
                         <ol id="years" class="panel-collapse collapse in" data-val="0">
                             <!--<li class="active" onClick="goToByScroll('page2018'); return false;">2018</li>-->
                             <!--<li onClick="goToByScroll('page2017'); return false;">2017</li>-->
@@ -121,137 +71,49 @@
                             <!--<li onClick="goToByScroll('page2015'); return false;">2015</li>-->
                         </ol>
                     </div>
-                    <div class="fold">
-                        <a id="nextY" href="javascript:;"></a>
-                        <!--2014-2011-->
-                    </div>
                 </div>
             </div>
 
-            <!--作品-->
             <div class="col-10 padding-0" id="workCon">
-                <!--<div  th:each="val:${vals}">-->
-                    <!--<div th:each="data:${val}" th:id="${'page'+data.key}"  class="content">-->
-                        <!--<div th:each="data:${val}" >-->
-                            <!--<div th:each="d:${data.value}" class="work-info">-->
-                                <!--<img th:src="${d.picUrl}" class="" th:onclick="|enlarge(${d.id})|" />-->
-                                <!--<p th:text="${d.title+','+d.content+','+d.picSize+','+d.workYear}"></p>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                <!--<div id="page2018" class="content">-->
+                    <!--<div class="caption">2018年作品集</div>-->
+                    <!--<div class="work-info">-->
+                        <!--<img class="lazy" data-original="../image/sun.png" onclick="fullS(this)">-->
+                        <!--<p>名称，基础信息，33cmX33cm，2018</p>-->
+                    <!--</div>-->
+                    <!--<div class="work-info">-->
+                        <!--<img class="lazy" data-original="../image/work02.jpg" onclick="fullS(this)">-->
+                        <!--<p>名称，基础信息，33cmX33cm，2018</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div id="page2017" class="content">-->
+                    <!--<div class="caption">2017年作品集</div>-->
+                    <!--<div class="work-info">-->
+                        <!--<img class="lazy" data-original="../image/pic-04.jpg" onclick="fullS(this)">-->
+                        <!--<p>名称，基础信息，33cmX33cm，2018</p>-->
+                    <!--</div>-->
+                    <!--<div class="work-info">-->
+                        <!--<img class="lazy" data-original="../image/work02.jpg" onclick="fullS(this)">-->
+                        <!--<p>名称，基础信息，33cmX33cm，2018</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div id="page2016" class="content">-->
+                    <!--<div class="caption">2016年作品集</div>-->
+                    <!--<div class="work-info">-->
+                        <!--<img class="lazy" data-original="../image/pic-04.jpg" onclick="fullS(this)">-->
+                        <!--<p>名称，基础信息，33cmX33cm，2018</p>-->
                     <!--</div>-->
                 <!--</div>-->
             </div>
         </div>
     </div>
 </div>
-
-<div class="full-screen">
-    <div class="full-pic">
-        <div class="magnify">
-            <div class='large'></div>
-            <img src="" class="small">
-        </div>
-    </div>
-    <div class="pic-info">
-        <div class="main">
-            <div>
-                <p>名称：这里是作品名称</p>
-                <p>简介：这里是作品的简介</p>
-                <p>时间：2018</p>
-                <p>尺寸：33*33</p>
-            </div>
-        </div>
-    </div>
-    <div class="close" onclick="closeScreen()"></div>
-</div>
-
-
 </body>
-<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.lazyload.min.js}"></script>
+<!--<script src="../layui/layui.js"></script>-->
 
-<script th:src="@{/js/jquery-1.11.0.min.js}"></script>
-<script th:src="@{/js/jquery.lazyload.js?v=1.9.1}"></script>
-<script>
-    // var picUrl = "../image/work01.jpg", title = '名称', content = '基础信息', picSize = '33cmX33cm', workYear = '2018';
+<script th:inline="none">
 
-    var workYears = $("#workYears").val();
-    workYears = workYears.replace("[", "");
-    workYears = workYears.replace("]", "");
-    var years = workYears.split(",");
-    var length = years.length;
-
-    var nowY = years[0], //作品最近一年
-        earlierY = years[length - 1]; //作品最早一年
-
-    /*---------------时间轴-------------*/
-
-    var workId = "";
-
-    for (i = 0; i < length; i++) {
-        workId = "'page" + years[i].trim() + "'";
-        var workM = '<li onClick="goToByScroll(' + workId + '); return false;"><a href="javascript:;">' + years[i].trim() + '</a></li>';//这里写个循环
-        $('#years').append(workM);//添加年份时间轴
-    }
-
-    $("#years li:first-child").addClass('active');
-
-    $('#nextY').text($('#years li:nth-child(5) a').text() + '-' + earlierY);
-
-    $('#prevY').hide();
-
-    if ($("#years li").length <= 4) {
-        $('#nextY').hide();
-    }
-
-    yearsLi();
-    /*前四年*/
-    $('#prevY').click(function () {
-        var n = $('#years').attr('data-val');
-        var py = $('#years li:nth-child(' + (4 * n - 4) + ') a').text();
-        var ny = $('#years li:nth-child(' + (4 * n + 1) + ') a').text();
-        if (n > 0) {
-            $('#years').attr('data-val', n * 1 - 1);
-            yearsLi();
-            if (n == 1) {
-                $('#prevY').hide();
-            }
-        }
-
-        $('#prevY').text(nowY + '-' + py);
-        $('#nextY').text(ny + '-' + earlierY);
-        $('#nextY').show();
-    });
-    /*后四年*/
-    $('#nextY').click(function () {
-        var n = $('#years').attr('data-val');
-        var py = $('#years li:nth-child(' + (4 * n + 4) + ') a').text();
-        var ny = $('#years li:nth-child(' + (4 * n + 9) + ') a').text();
-        var l = Math.ceil($("#years li").length / 4) - 1;
-        if (n < l) {
-            $('#years').attr('data-val', n * 1 + 1);
-            yearsLi();
-            if (n == (l - 1)) {
-                $('#nextY').hide();
-            }
-        }
-
-        $('#prevY').show();
-        $('#prevY').text(nowY + '-' + py);
-        $('#nextY').text(ny + '-' + earlierY);
-    });
-
-    function yearsLi() {
-        var n = $('#years').attr('data-val');
-
-        $("#years li").hide();
-
-        for (var i = 1; i <= 4; i++) {
-            $("#years li:nth-child(" + (4 * n + i) + ")").show();
-        }
-
-    }
-
-    /*---------------添加作品-------------*/
     $.ajax({
         type: "post",
         url: "/show/getWorkList",
@@ -259,9 +121,7 @@
         dataType: "json",
         cache: false,
         success: function (data) {
-            console.log(0);
             if (data.code === '0') {
-                console.log(1);
                 var list = data.data;    //list
                 for (var i in list) {
                     for (var key in list[i]) {
@@ -269,67 +129,31 @@
                         var workCon = '';
 
                         for (var j in list[i][key]) {
-                            console.log(2);
                             var d = list[i][key][j];
-                            // workCon = workCon + ' <div class="work-info">\n' +
-                            //     // '<img data-original="' + d.picUrl + '" class="lazy small" onclick="fullS(\''+d.picUrl+'\',\''+d.title+'\',\''+d.content+'\',\''+d.picSize+'\',\''+d.workYear+ '\')" />\n' +
-                            //     '<img data-original="' + d.picUrl + '" class="lazy" onclick="enlarge(' + d.id + ')" />\n' +
-                            //     '<p> ' + d.title + ',' + d.content + ',' + d.picSize + ',' + d.workYear + '</p>\n' +
-                            //     '</div>';
-
                             workCon = workCon + ' <div class="work-info">\n' +
-                                // '<img data-original="' + d.picUrl + '" class="lazy small" onclick="fullS(\''+d.picUrl+'\',\''+d.title+'\',\''+d.content+'\',\''+d.picSize+'\',\''+d.workYear+ '\')" />\n' +
-                                '<img src="' + d.picUrl + '" onclick="enlarge(' + d.id + ')" />\n' +
-                                '<p> ' + d.title + ',' + d.material + ',' + d.picSize + ',' + d.content + '</p>\n' +
+                                '<img data-original="' + d.picUrl + '" class="lazy" onclick="fullS('+d.id+')" />\n' +
+                                // '<img lay-src="' + d.picUrl + '" onclick="enlarge(' + d.id + ')" />\n' +
+                                 '<p> ' + d.title + ',' +d.material + ',' + d.picSize  + ',' + d.content + '</p>\n' +
                                 '</div>';
+                            /*
+                                                            workCon = workCon + ' <div class="work-info">\n' +
+                                                                // '<img data-original="' + d.picUrl + '" class="lazy small" onclick="fullS(\''+d.picUrl+'\',\''+d.title+'\',\''+d.content+'\',\''+d.picSize+'\',\''+d.workYear+ '\')" />\n' +
+                                                                '<img src="' + d.picUrl + '" onclick="enlarge(' + d.id + ')" />\n' +
+                                                                '<p> ' + d.title + ',' + d.material + ',' + d.picSize + ',' + d.content + '</p>\n' +
+                                                                '</div>';*/
 
-                            var ye = '2018';//作品年份
-                            var workId = "'page" + ye + "'";
-                            console.log(2);
                         }
-                        workYearsCon = '<div id="page' + key + '" class="content">' + workCon + '</div>';
+
+                        workYearsCon =
+                            '<div id="page' + key + '" class="content">' +
+                                '<div class="caption">'+key+'年作品集</div>'
+                                    + workCon + '' +
+                            '</div>';
                         $('#workCon').append(workYearsCon);
                     }
                 }
 
-
-                // var list = data.data;    //list
-                // for (var i in list) {
-                //     for (var key in list[i]) {    //map key 
-                //         console.log(key);
-                //         console.log(list[i][key]);  //map value
-                //     }
-                // }
-
-                !function () {
-                    var map = [], names = [], win = $(window);
-                    $('.content').each(function (n) {
-                        map[n] = this.offsetTop;
-                        names[n] = $(this).attr('id');
-                    });
-                    win.on('scroll', function () {
-                        var i = 0;
-                        while (map[i++] <= win.scrollTop()) {
-                            $('.workTime li').removeClass("active");
-                            $('.workTime li').eq((i - 1)).addClass("active");
-                        }
-
-                    })
-                }();
-
-                $(".work-info img").each(function () {
-                    var w = $(this).naturalWidth(),
-                        ww = $(".main").width();
-                    $(this).parent('.work-info').css({
-                        "width": w / 2500 * ww,
-                        "margin-left": 'auto',
-                        "margin-right": 'auto'
-                    });
-                });
-
-
-                // //懒加载
-                // $("img.lazy").lazyload({effect: "fadeIn"});
+                runFun();
             }
         },
         error:function(data,type, err){
@@ -339,273 +163,166 @@
             // layer.msg("数据异常，请刷新后再试", {time: 1000})
         }
     });
+</script>
+
+<script>
+    var picUrl = "../image/work03.jpg", title = '名称', content = '基础信息', picSize = '33cmX33cm';
+
+    /*---------------时间轴-------------*/
+
+    // var ye = '2018';//作品年份
+    // var workId = "'page" + ye + "'";
+    // var workM = '<li onClick="goToByScroll(' + workId + ', this); return false;"><a href="javascript:;">' + ye + '</a></li>';//这里写个循环
+    //
+    // $('#years').append(workM);//添加年份时间轴
+
+    var workYears = $("#workYears").val();
+    workYears = workYears.replace("[", "");
+    workYears = workYears.replace("]", "");
+    var years = workYears.split(",");
+    var length = years.length;
+
+
+    var workId = "";
+    var earlyYear = '2015及以前';
+    var yaer2015 = '2015';
+
+    for (i = 0; i < length; i++) {
+        console.log(years[i]);
+
+        workId = "'page" + years[i].trim() + "'";
+        var workM = '<li onClick="goToByScroll(' + workId + ',this); return false;"><a href="javascript:;">' + (years[i].trim()==yaer2015?earlyYear:years[i].trim()) + '</a></li>';//这里写个循环
+        $('#years').append(workM);//添加年份时间轴
+    }
+
+    $("#years li:first-child").addClass('active');
+
+
+    /*--------------作品内容--------------*/
+    //    var workCon = '<div class="work-info"><img src="'
+    //            + picUrl + '" onclick="fullS(this)"><p>'
+    //            + title + '，' + content + '，' + picSize + '，' + workYear + '</p></div>'; //当前年份下的作品
+    //
+    //    var workY = '<div id="page' + workYear + '" class="content">' + workCon + '</div>'; //当前年份 div
+    //
+    //    $('#workCon').append(workY);
 
 </script>
 <script>
-    (function ($) {
-        var props = ['Width', 'Height'], prop;
+    // $(function () {
 
-        while (prop = props.pop()) {
-            (function (natural, prop) {
-                $.fn[natural] = (natural in new Image()) ?
-                    function () {
-                        return this[0][natural];
-                    } :
-                    function () {
-                        var node = this[0], img, value;
+    var runFun = function () {
 
-                        if (node.tagName.toLowerCase() === 'img') {
-                            img = new Image();
-                            img.src = node.src;
-                            value = img[prop];
-                        }
-                        return value;
-                    };
-            }('natural' + prop, prop.toLowerCase()));
+        var widW = $(window).width();
+        var widH = $(window).height();
+        var top = $('.head').outerHeight();
+//-----------------------header-----------------------
+        if (widW <= 750) {
+            $('.fix').height(top + 10);
+        } else {
+            $('.fix').height(top + 30);
         }
-    }(jQuery));
-
-    //
-    function addClass(obj) {
-        $('#years li').removeClass('active');
-        $(obj).addClass('active');
-    }
+        if ($('.workTime').height() >= (widH - $('.fix').height())) {
+            $('.workTime').css('position', 'relative')
+        } else {
+            $('.workTime').css('position', 'fixed')
+        }
 
 
-    function enlarge(workId) {
-        $.ajax({
-            type: "post",
-            url: "/show/getWorkInfo",
-            contentType: "application/json",
-            data: JSON.stringify(workId),
-            dataType: "json",
-            cache: false,
-            success: function (data) {
-                if (data.code === '0') {
-                    fullS(data.data)
-                } else {
-                    layer.msg(data.msg, {time: 1000});
-                }
-            },
-            error: function () {
-                layer.msg("数据异常，请刷新后再试", {time: 1000})
-            }
-        });
-    }
+//-----------------------lazyload-----------------------
+        $("img.lazy").lazyload({effect: "fadeIn"});
 
-    // function fullS(picUrl, title, content, picSize, workYear) {
-    //
-    //
-    //     $('.full-pic .small').attr('src', picUrl);
-    //     $('.full-pic .large').css('background-image', 'url(' + picUrl + ')');
-    //     $('.pic-info').html(' <div>\n' +
-    //         '            <p>名称：' + title + '</p>\n' +
-    //         '            <p>简介：' + content + '</p>\n' +
-    //         '            <p>时间：' + workYear + '</p>\n' +
-    //         '            <p>尺寸：' + picSize + '</p>\n' +
-    //         '        </div>');
-    function fullS(obj) {
+//-----------------------lazyload-----------------------
+//        layui.use('flow', function () {
+//            var flow = layui.flow;
+//            //当你执行这样一个方法时，即对页面中的全部带有lay-src（当然你也可以指定相关img）
+//            flow.lazyimg();
+//        });
 
+//-----------------------图片大小-----------------------
 
-        $('.full-pic .small').attr('src', obj.picUrl);
-        $('.full-pic .large').css('background-image', 'url(' + obj.picUrl + ')');
-        $('.pic-info').html(' <div>\n' +
-            '            <p>名称：' + obj.title + '</p>\n' +
-            '            <p>简介：' + obj.content + '</p>\n' +
-            '            <p>时间：' + obj.workYear + '</p>\n' +
-            '            <p>尺寸：' + obj.picSize + '</p>\n' +
-            '        </div>');
+        $("img.lazy").each(function () {
 
-        $('.full-screen').show();
-
-        $('.small').load(function () {
-
-            var fullH = $('.full-screen').height(),
-                fullW = $('.full-screen').width(),
-                fph = $('.full-pic .small').naturalHeight(),
-                fpw = $('.full-pic .small').naturalWidth(),
-                fsh = $('.full-pic .small').height();
-
-            var diffull = fullH / fullW;
-            var diffp = fph / fpw;
-
-            if (fpw < fullW && fph < fullH) {
-                $('.full-pic .small').css({
-                    'width': fpw * 0.9,
-                    'height': 'auto'
-                });
-                $('.full-pic .magnify').css({
-                    'margin-top': ((fullH - fsh - 160) / 2) + 'px'
-
-                });
-            } else {
-                if (diffp <= diffull) {
-                    $('.full-pic .small').css({
-                        'width': '100%',
-                        'height': 'auto'
-                    });
-                    $('.full-pic .magnify').css({
-                        'margin-top': ((fullH - fsh - 160) / 2) + 'px'
-                    });
-                } else {
-                    $('.full-pic .small').css({
-                        'width': 'auto',
-                        'height': (fullH - 160) + 'px'
-                    });
-                    $('.full-pic .magnify').css({
-                        'margin-top': 'auto'
-                    });
-                }
-            }
-
-            // $('.full-pic .pic-info > div').css({
-            //     'width': '50%',
-            //     'margin': 'auto'
-            // });
-
-            $(document.body).css({
-                "overflow-x": "hidden",
-                "overflow-y": "hidden"
-            });
-
-        })
-    }
-
-    function closeScreen() {
-        $('.full-screen').hide();
-
-        $(document.body).css({
-            "overflow-x": "auto",
-            "overflow-y": "auto"
-        });
-    }
-</script>
-
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
-
-        // 定义图像的实际尺寸、
-
-        var native_width = 0;
-
-        var native_height = 0;
-
-        // 首先、我们应该获得图像的实际尺寸、（本地的图片）
-
-        $('.small').load(function () {
-
-            // 这里我们需要重新创建一个和之前相同的图像对象、
-
-            // 因为我们不能直接获得图像尺寸的宽高、
-
-            // 因为我们在HTML里已经指定了图片宽度、
+            var native_width, native_height;
+            var ww = $(".work-info").width();
 
             var img_obj = new Image();
-
-            img_obj.src = $(this).attr('src');
-
-
-            //  在这里这段代码写在这里是非常有必要的、
-
-            //  如果在图像加载之前就访问的话、return的宽高值为0、
+            img_obj.src = $(this).attr('data-original');
 
             native_width = img_obj.width;
-
             native_height = img_obj.height;
 
-
-            // 现在、我来开始写鼠标移动的函数、mousemove()
-
-            $('.magnify').mousemove(function (e) {
-
-                // 获得鼠标X轴和Y轴的坐标
-
-                //  先获得magnify相对与document的定位position
-
-                var magnify_offset = $(this).offset();
-
-
-                // 这里我们用鼠标相对与文档的位置减去鼠标相对于magnify这个人容器的位置 来得到鼠标的位置
-
-                var mouse_x = e.pageX - magnify_offset.left;
-
-                var mouse_y = e.pageY - magnify_offset.top;
-
-
-                // 现在、我们来调整一下放大镜的隐藏与显示、
-
-                if (mouse_x > 0 && mouse_y > 0 && mouse_x < $(this).width() && mouse_y < $(this).height()) {
-
-                    $('.large').fadeIn(100);
-
+            if (widW >= 620) {
+                if (native_width / native_height >= 2) {
+                    if (native_width >= ww) {
+                        $(this).css({
+                            "width": ww,
+                            "height": ww / native_width * native_height
+                        });
+                    } else {
+                        $(this).css({
+                            "width": native_width,
+                            "margin-left": 'auto',
+                            "margin-right": 'auto',
+                            "height": native_height
+                        });
+                    }
                 } else {
-
-                    $('.large').fadeOut(100);
-
-                }
-
-                if ($('.large').is(':visible')) {
-
-                    // 放大镜图片背景的定位是根据鼠标在小图片上改变的位置来改变的、
-
-                    // 因此、我们应该先得到放大的比例、来定位这个放大镜里背景图片的定位、
-
-                    /*
-
-                     var ratio_x = mouse_x/$('.small').width();//得到的是缩放的比例
-
-                     var large_x = ratio_x*native_width;
-
-                     // 我们需要让它在放大镜的中间位置显示、
-
-                     large_x = large_x - $('.large').width()/2;
-
-                     // 因为背景图片的定位、这里需要转化为负值、
-
-                     large_x = large_x*-1;
-
-                     // 现在我们来整合一下所有的计算步骤、
-
-                     */
-
-                    var rx = Math.round(mouse_x / $('.magnify').width() * native_width - $('.large').width() / 2) * -1;
-
-                    var ry = Math.round(mouse_y / $('.magnify').height() * native_height - $('.large').height() / 2) * -1;
-
-                    var bgp = rx + 'px ' + ry + 'px';
-
-
-                    // 现在我们应该来写放大镜跟随鼠标的效果、
-
-                    // 放大镜移动的位置 相对于文档的位置 减去 放大镜相对于放大这个层的offset的位置、
-
-                    // 再减去放大镜宽高的一半、保证放大镜的中心跟随鼠标
-
-
-                    var gx = mouse_x - $('.large').width() / 2;
-
-                    var gy = mouse_y - $('.large').height() / 2;
-
-
-                    $('.large').css({
-                        'left': gx,
-                        'top': gy,
-                        'backgroundPosition': bgp
-
+                    $(this).css({
+                        "width": 400,
+                        "margin-left": 'auto',
+                        "margin-right": 'auto',
+                        "height": 400 / native_width * native_height
                     });
-
                 }
-
-            })
+            } else {
+                $(this).css({
+                    "width": ww,
+                    "height": ww / native_width * native_height
+                });
+            }
 
         });
 
-        // 最后、我们来把这个mousemove()这个函数来放在这个load这个函数里
 
-    })
+//-----------------------workTime-----------------------
+//         !function () {
+            var map = [], names = [], win = $(window);
+            $('.content').each(function (n) {
+                map[n] = this.offsetTop;
+                names[n] = $(this).attr('id');
+            });
+            win.on('scroll', function () {
+                var i = 0;
+                while (map[i++] <= win.scrollTop()) {
+                    $('.workTime li').removeClass("active");
+                    $('.workTime li').eq((i - 1)).addClass("active");
+                }
+            })
+        // }();
+
+
+    };
+
+
+    function goToByScroll(id, obj) {
+        var top = $('.fix').height();
+        var targetOffset = $("#" + id).offset().top - top;
+
+        $('html,body').animate({scrollTop: targetOffset}, 'slow', function () {
+            $('#years li').removeClass('active');
+            $(obj).addClass('active');
+        });
+    }
+
+    function fullS(id) {
+        // var alt = $(obj).attr('data-original');
+        window.location.href = "/pages/show/workimg/"+id;
+    }
+
+    $(window).resize(function () {          //当浏览器大小变化时
+        window.location.reload();
+    });
 
 </script>
-<!--<script type="text/javascript" src="../js/scale.js"></script>-->
 </html>

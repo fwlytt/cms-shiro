@@ -76,7 +76,8 @@ public class Page {
     }
 
     public void setOrder(String order) {
-        this.order = order;
+        this.order=order==null?"":order
+        ;
     }
 
     public Map<String, String> getMap() {

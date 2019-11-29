@@ -3,13 +3,10 @@ package com.cms.controller;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.cms.domain.Article;
-import com.cms.domain.CmsWorks;
-import com.cms.domain.Stock;
 import com.cms.domain.base.BackCode;
 import com.cms.domain.base.Page;
 import com.cms.domain.base.Val;
 import com.cms.service.ArticleService;
-import com.cms.service.WorksService;
 import com.cms.util.FieldUtils;
 import com.cms.util.Utils;
 import com.github.pagehelper.PageHelper;
@@ -45,7 +42,7 @@ public class ArticleController {
         //PageHelper.startPage(page, limit);
         List<Article> list = articleService.queryList(page.getKey());
         if (list != null && list.size() > 0) {
-            PageInfo<Stock> info = new PageInfo(list);
+            PageInfo<Article> info = new PageInfo(list);
             val.setData(list);
             val.setCount(info.getTotal());
             val.setInfo(BackCode.SUCCESS, "成功");

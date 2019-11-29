@@ -6,9 +6,10 @@
           WARNING - @mbg.generated
         -->
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="work_year" jdbcType="VARCHAR" property="workYear"/>
+        <result column="work_year" jdbcType="INTEGER" property="workYear"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="material" jdbcType="VARCHAR" property="material"/>
         <result column="pic_size" jdbcType="VARCHAR" property="picSize"/>
         <result column="pic_url" jdbcType="VARCHAR" property="picUrl"/>
         <result column="banner" jdbcType="VARCHAR" property="banner"/>
@@ -20,12 +21,11 @@
     </resultMap>
 
     <sql id="BaseColumnList">
-        id, work_year, title, content, pic_size, pic_url, banner, rank, banner_rank, home_show, create_time, status
+        id, work_year workYear, title, content, material, pic_size, pic_url, banner, rank, banner_rank, home_show, create_time, status
     </sql>
 
-    <select id="queryList" parameterType="string" resultMap="BaseResultMap">
-        SELECT
-        <include refid="BaseColumnList"/>
+    <select id="queryList" parameterType="string" resultType="com.cms.domain.CmsWorks">
+        SELECT id, work_year workYear, title, content, material, pic_size PicSize, pic_url picUrl
         FROM cms_works
         <where>
             status = '1'
@@ -34,6 +34,25 @@
             </if>
         </where>
         ORDER BY work_year DESC, rank ASC
+    </select>
+
+    <select id="queryWorkPageList" resultType="com.cms.domain.CmsWorks">
+        SELECT id, work_year workYear, title, content, material, pic_size PicSize, pic_url picUrl, rank
+        FROM cms_works
+        <where>
+            status = '1'
+            AND work_year > 2015
+        </where>
+
+        UNION ALL
+
+        SELECT id, 2015 as workYear, title, content, material, pic_size PicSize, pic_url picUrl, rank
+        FROM cms_works
+        <where>status = '1'
+            AND work_year &lt; 2016
+        </where>
+
+        ORDER BY workYear DESC, rank ASC
     </select>
 
     <select id="queryBannerList" resultMap="BaseResultMap">
@@ -53,14 +72,15 @@
             status = '1'
             AND home_show = '是'
         </where>
-        ORDER BY  work_year DESC, rank ASC
+        ORDER BY work_year DESC, rank ASC
     </select>
-    
+
     <select id="queryYearList" resultType="string">
         SELECT DISTINCT work_year
         FROM cms_works
         <where>
             status = '1'
+            AND work_year > 2014
         </where>
         ORDER BY work_year DESC
     </select>

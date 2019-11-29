@@ -62,9 +62,9 @@ public class PageController {
                 break;
             //作品
             case "work":
-                List<Map<String ,List<CmsWorks>>> worksList = worksService.queryWorkListGroupByYear();
+                //List<Map<Integer ,List<CmsWorks>>> worksList = worksService.queryWorkListGroupByYear();
                 List<String> years = worksService.queryYearList();
-                model.addAttribute("vals", worksList);
+                //model.addAttribute("vals", worksList);
                 model.addAttribute("years", years);
                 break;
             //经历
@@ -76,6 +76,10 @@ public class PageController {
             case "article":
                 List<Article> articleList = articleService.queryFullList();
                 model.addAttribute("vals", articleList);
+                break;
+            case "workimg":
+                CmsWorks work = worksService.selectByKey(Integer.parseInt(fieldId));
+                model.addAttribute("val", work);
                 break;
                 default:
                     break;

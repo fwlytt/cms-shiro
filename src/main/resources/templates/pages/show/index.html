@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=0"/>-->
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=0"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -70,7 +68,6 @@
             </div>
         </div>
     </div>
-
     <div class="content" id="work">
         <div id="slider1_container" class="banner_box">
             <!-- Loading Screen -->
@@ -114,15 +111,14 @@
             </div>
         </div>
     </div>
-
     <div class="ban content" id="biography">
-        <img src="/image/pic-02.jpg"/>
+        <img src="/image/pic-02.jpg" class=""/>
         <div>
             <div class="f-right">
                 <div class="dis-table f-left">
                     <div class="dis-cell">
                         <div class="bioBox">
-                            <span>经历 Biography</span>
+                            <h5>经历 Biography</h5>
                             <ul>
                                 <li th:each="val:${exps}">
                                     <span th:text="${val.expYear + '-  '+ val.content}"></span>
@@ -160,7 +156,7 @@
             <div class="f-right">
                 <div class="dis-table">
                     <div class="dis-cell">
-                        <p>联系方式 Contact</p>
+                        <h5>联系方式 Contact</h5>
                         <p>15904699637</p>
                         <p>956513007@qq.com</p>
                     </div>
@@ -170,62 +166,36 @@
     </div>
 </div>
 </body>
+
 <script>
     var jumpTo = function (workId) {
         window.location.href = '/pages/show/work/' + workId;
     };
-
     /*-------------------banner---------------------------------------*/
-    // var banhref = '/pages/show/work/', //banner图片链接
+    // var banhref = "'DejingSun-work.html'", //banner图片链接
     //     bansrc = '/image/pic-01.jpg',    //banner图片路径
-    //     banner = '<div><img data-u="image" src="' + bansrc + '" alt onclick="window.location.href=\'' + banhref + '0\'" /></div>';
+    //     banner = '<div><img data-u="image" src="' + bansrc + '" alt onclick="window.location.href=' + banhref + '" /></div>';
+    // $('#banner').append(banner);
+    //
+    // bansrc = '/image/癸巳散记 60x40cm 熟宣折扇 2014.jpg';
+    // banner = '<div><img data-u="image" src="' + bansrc + '" alt onclick="window.location.href=' + banhref + '" /></div>';
+    // $('#banner').append(banner);
+    //
+    // bansrc = '/image/流年若梦 140x75cm 熟宣 2015.jpg';
+    // banner = '<div><img data-u="image" src="' + bansrc + '" alt onclick="window.location.href=' + banhref + '" /></div>';
     // $('#banner').append(banner);
 
-
-    // $.ajax({
-    //     type: "post",
-    //     url: "/show/getBannerList",
-    //     contentType: "application/json",
-    //     dataType: "json",
-    //     cache: false,
-    //     success: function (data) {
-    //         if (data.code === '0') {
-    //             var list = data.data;
-    //             for (var i in list) {
-    //                 $('#banner').append('<div><img data-u="image" src="' + list[i].picUrl + '" ' +
-    //                     'alt onclick="window.location.href=\'' + banhref + list[i].id + '\'" /></div>');
-    //             }
-    //         }
-    //     }, error: function () {
-    //         layer.msg("数据异常，请刷新后再试", {time: 1000})
-    //     }
-    // });
-
     /*-------------------work---------------------------------------*/
-    var imghref = '/pages/show/work/', //作品图片链接
-        imgsrc = '/image/work01.jpg',    //图片路径
-        workimg = '<div class="sangar-content" onclick="window.location.href=\'' + imghref + '\'"><img src="' + imgsrc + '"/></div>';
-
+    // var imghref = '"DejingSun-work.html"', //作品图片链接
+    //     imgsrc = '/image/work01.jpg',    //图片路径
+    //     imgn = 5,//添加的作品图片个数
+    //     workimg = " <div class='sangar-content' onclick='window.location.href=" + imghref + "'><img src='" + imgsrc + "'/></div>";
+    //
     // $('#sangar-content-wrapper').append(workimg);
-
-    // $.ajax({
-    //     type: "post",
-    //     url: "/show/getHomeWorkList",
-    //     contentType: "application/json",
-    //     dataType: "json",
-    //     cache: false,
-    //     success: function (data) {
-    //         if (data.code === '0') {
-    //             var list = data.data;
-    //             for (var i in list) {
-    //                 $('#sangar-content-wrapper').append('<div class="sangar-content" ' +
-    //                     'onclick="window.location.href=\'' + imghref + list[i].id + '\'"><img src="' + list[i].picUrl + '"/></div>');
-    //             }
-    //         }
-    //     }, error: function () {
-    //         layer.msg("数据异常，请刷新后再试", {time: 1000})
-    //     }
-    // });
+    // $('#sangar-content-wrapper').append(workimg);
+    // $('#sangar-content-wrapper').append(workimg);
+    // $('#sangar-content-wrapper').append(workimg);
+    // $('#sangar-content-wrapper').append(workimg);
 
 </script>
 <!--*---------------------banner---------------------*-->
@@ -233,6 +203,7 @@
 <!--<script src="../js/sidebar/main.js"></script> &lt;!&ndash; Resource jQuery &ndash;&gt;-->
 <script type="text/javascript" th:src="@{/lib/banner/js/jssor.slider.mini.js}"></script>
 <!--*---------------------banner end---------------------*-->
+
 <!--*---------------------work---------------------*-->
 <script type="text/javascript" th:src="@{/lib/assets/js/jquery.touchSwipe.min.js}"></script>
 <script type="text/javascript" th:src="@{/lib/assets/js/imagesloaded.min.js}"></script>
@@ -255,23 +226,23 @@
 
 <script type='text/javascript'>
     jQuery(document).ready(function ($) {
-
         var top = $('.head').height();
 //-----------------------header-----------------------
-        if ($(window).width() <= 750) {
+        if($(window).width()<=750){
             $('.fix').height(top);
-        } else {
+        }else{
             $('.fix').height(top + 60);
         }
 
         $('.menu a').click(function () {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+
                 var $target = $(this.hash);
                 $target = $target.length && $target || $('[name=' + this.hash.slice(1) + ']');
                 if ($target.length) {
                     var targetOffset = $target.offset().top - (top + 60);
 
-                    if ($(window).width() <= 750) {
+                    if($(window).width()<=750){
                         targetOffset = $target.offset().top - top;
                     }
 
@@ -279,7 +250,8 @@
                             scrollTop: targetOffset
                         },
                         1000);
-                    $(this).addClass('cur');
+
+
                     return false;
                 }
             }
@@ -441,9 +413,7 @@
 
 //-----------------------work-----------------------
         var workYears = $("#workYears").val();
-        console.log("workYears:"+workYears);
         var yearList = JSON.parse(workYears);
-        console.log("yearList:"+yearList);
         var yearSize = workYears.split(",");
 
         var main = $('.main').eq(0).width(), height, pcWidth;
@@ -492,7 +462,7 @@
 //-----------------------article-----------------------
         var widthData = new Array();//对象数组
 
-        $('#article .arTitle p').each(function (i) {//遍历
+        $('#article .arTitle p a').each(function (i) {//遍历
             widthData.push($(this).width());
         });
 
@@ -502,31 +472,38 @@
         //    alert(widthData[widthData.length-1] +1);//最大值
         //    alert(widthData[0]);//最小
 
-        $('#article p').css('width', widthData[widthData.length - 1] + 1 + 'px');
+        $('#article p').css('width', widthData[widthData.length - 1] + 20 + 'px');
 
 
-        function artC() {
-            var aimgH = $('#article').height(),
-                artH = $('#article .arTitle').height();
-            if (artH <= aimgH) {
-                $('#article p').css('display', 'block');
-            } else {
-                $('#article p').css('display', 'inline-block');
-                $('#article > img').css('opacity', '0.9');
-            }
-        }
-
-        window.onresize = function () {
-            artC();
-        };
-
-        artC();
+//        function artC() {
+//            var aimgH = $('#article').height(),
+//                    artH = $('#article .arTitle').height();
+//            if (artH <= aimgH) {
+//                $('#article p').css('display', 'block');
+//            } else {
+//                $('#article p').css('display', 'inline-block');
+//                $('#article > img').css('opacity', '0.9');
+//            }
+//        }
+//
+//        window.onresize = function () {
+//            artC();
+//        };
+//
+//        artC();
 //-----------------------article end-----------------------
-        var fieldId = $("#fieldId").val();
-        if (fieldId && fieldId != 0) {
-            window.location.href = '#' + fieldId;
-        }
+
     });
+
+    var fieldId = $("#fieldId").val();
+    if (fieldId && fieldId != 0) {
+        window.location.href = '#' + fieldId;
+    }
+
+    $(window).resize(function () {          //当浏览器大小变化时
+        window.location.reload();
+    });
+
 </script>
 
 </html>

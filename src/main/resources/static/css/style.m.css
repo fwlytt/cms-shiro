@@ -1,6 +1,48 @@
+@media screen and (min-width: 768px) {
+
+    h4 {
+        font-size: 1.5em;
+    }
+
+    h5 {
+        font-size: 1.35em;
+    }
+
+    #biography.ban > div, #article.ban > div {
+        padding: 5px 0;
+    }
+
+    /*滑动*/
+    /*#biography.ban > div, #article.ban > div {*/
+    /*padding: 70px 0 8px;*/
+    /*}*/
+    #biography.ban h5, #article.ban h5 {
+        /*position: absolute;*/
+        /*top: 18px;*/
+        height: 40px;
+        line-height: 40px;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
+    #article p {
+        margin-bottom: 10px;
+    }
+
+    #contact.ban .f-right {
+        padding-top: 30px;
+    }
+
+    #contact p {
+        font-size: 16px;
+        margin: 15px 0;
+    }
+}
+
 @media screen and (max-width: 1280px) {
-    #biography.ban .f-right {
-        margin-right: 30px;
+    #biography.ban h5, #article.ban h5 {
+        margin-bottom: 15px;
+        margin-top: 15px;
     }
 }
 
@@ -36,25 +78,32 @@
     }
 
     .navTab li {
-        display: inline-block;
-        margin-right: 20px;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
-    .con {
+    .con, .article > .con {
         margin-top: 10px;
+    }
+    .article .tab-content h4{
+        margin-top: 20px;
     }
 
     #biography.ban li {
         line-height: 1.4;
-        margin: 10px 0;
+        margin: 0 0 10px;
     }
 
     #biography.ban .f-right {
         width: auto;
         background: rgba(255, 255, 255, .3);
         padding: 10px;
-        margin: 0 15px;
+        margin: 0 2.5%;
+    }
+
+    #article.ban .f-left {
+        width: 95%;
+        padding: 10px;
+        margin: 0 2.5%;
     }
 
     .article {
@@ -72,14 +121,32 @@
         font-size: 16px;
     }
 
+    h5 {
+        font-size: 16px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    #biography.ban h5, #article.ban h5 {
+        margin-top: 5px;
+    }
+
+    #article.ban h5 {
+        margin-bottom: 8px;
+    }
+
+    #article p {
+        margin-bottom: 2px;
+    }
+
     .head {
         padding: 0;
     }
 
     .logo {
-        height: 18px;
+        height: 15px;
         width: auto;
-        margin: 15px 10px 10px;
+        margin: 15px 5px 10px;
     }
 
     .logo img {
@@ -106,25 +173,25 @@
 
     .workTime li {
         height: 25px;
-        line-height: 25px;
+        /*line-height: 25px;*/
         font-size: 14px;
         width: 45px;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     .work-info {
         margin-bottom: 30px;
     }
 
-    #biography.ban > div {
+    #biography.ban > div, #article.ban > div {
         position: inherit;
     }
 
-    #biography.ban .f-right {
+    #biography.ban .f-right, #article.ban .f-left {
         width: 100%;
         margin: auto;
         text-align: justify;
-        background: url("/image/dt2.jpg") no-repeat center;
+        background: url("../image/dt2.jpg") no-repeat center;
         background-size: 100% 100%;
     }
 
@@ -140,28 +207,38 @@
         padding-left: 40px;
         font-size: 12px;
         line-height: 1.5;
-        margin: 10px 0;
+        margin: 0 0 10px;
     }
 
     #biography.ban li > span {
         margin-left: -40px;
     }
 
-    #article.ban .f-left {
-        font-size: 12px;
-
+    #article.ban {
+        background: url("../image/pic-03.jpg") no-repeat center;
+        background-size: 100% 100%;
     }
 
+    #article.ban > img {
+        margin-left: 20px;
+    }
+
+    #article.ban .f-left, #contact.ban {
+        font-size: 12px;
+    }
+
+    /*#article .arTitle p a {*/
+    /*display: none;*/
+    /*}*/
+    /*#article .arTitle p:nth-child(2) a, #article .arTitle p:nth-child(3) a, #article .arTitle p:last-child a {*/
+    /*display: inline-block;*/
+    /*}*/
     #contact p {
         margin: 10px 0;
     }
 
-    #article .arTitle p a {
-        display: none;
-    }
-
-    #article .arTitle p:nth-child(2) a, #article .arTitle p:nth-child(3) a, #article .arTitle p:last-child a {
-        display: inline-block;
+    .full-pic {
+        margin: 40px;
     }
 
     .close {
@@ -172,6 +249,10 @@
 
     .close:hover {
         background-size: 20px;
+    }
+
+    .caption {
+        margin-bottom: 12px;
     }
 
 }

@@ -10,7 +10,7 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="keywords" content="孙得菁 DEJING SUN"/>
     <meta name="description" content="孙得菁的个人网站"/>
-    <link rel="shortcut icon" href="/image/favicon.jpg" type="image/x-icon"/>
+    <!--<link rel="shortcut icon" href="/image/favicon.jpg" type="image/x-icon"/>-->
     <title>孙得菁 DEJING SUN</title>
 
     <link rel="stylesheet"  th:href="@{/css/bootstrap.min.css}"/>
@@ -25,12 +25,13 @@
     <script type="text/javascript" th:src="@{/js/jquery-1.12.4.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery-1.8.2.min.js}"></script>
     <![endif]-->
+
 </head>
 <body>
 <input type="hidden" th:value="${fieldId}" id="fieldId"/>
 
 <div class="home article">
-    <div class="main">
+    <div class="fix">
         <div class="head">
             <div class="main">
                 <div class="logo">
@@ -38,7 +39,7 @@
                         <img src="/image/sun.png"/>
                     </a>
                 </div>
-                <ul class="menu">
+                <ol class="menu">
                     <li>
                         <a href="/pages/show/work/0">作品Work</a>
                     </li>
@@ -51,19 +52,18 @@
                     <li>
                         <a href="/pages/show/index/contact">联系方式Contact</a>
                     </li>
-                </ul>
+                </ol>
                 <div class="clear"></div>
             </div>
         </div>
     </div>
-
     <div class="con">
         <div class="main">
             <div class="row margin-0">
                 <div class="col-md-3 padding-0">
                     <ul id="articleMenu" class="nav navTab">
                         <li th:each="val, iterStat: ${vals}" th:class="${iterStat.index == 0}?active">
-                            <a data-toggle="tab"th:href="${val.id}" th:text="${val.title}"  th:id="${'title_' + val.id}"> title</a>
+                            <a data-toggle="tab" th:href="${val.id}" th:text="${val.title}"  th:id="${'title_' + val.id}"> title</a>
                         </li>
                     </ul>
                 </div>
@@ -88,6 +88,7 @@
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 <script>
 
+
     var fieldId = $("#fieldId").val();
 
     if (fieldId && fieldId != 0) {
@@ -104,5 +105,32 @@
         $("#" + articleId).show();
     })
 
+
+    //    var id = 0, title = '文章标题', author = '文/作者', content = '立冬后的一场雨，风儿夹着寒意，将秋色吹进了初冬，美丽的秋色在初冬里延续，虽然满地落叶，依旧美的无以伦比…';
+//
+//    var articleMenu = '<li><a data-toggle="tab" href="' + id + '">' + title + '</a></li>';
+//
+//    $('#articleMenu').append(articleMenu);
+//    $('#articleMenu').append(articleMenu);
+//    $('#articleMenu').append(articleMenu);
+//    $('#articleMenu').append(articleMenu);
+//
+//    $('#articleMenu li:first-child').addClass('active');
+//
+//    $('#articleCon h4').text(title);
+//    $('#articleCon h5').text(author);
+//    $('#articleCon').append('<p>' + content + '</p>');
+
+</script>
+<script>
+    jQuery(document).ready(function ($) {
+        var top = $('.head').height();
+//-----------------------header-----------------------
+        if ($(window).width() <= 750) {
+            $('.fix').height(top);
+        } else {
+            $('.fix').height(top + 60);
+        }
+    });
 </script>
 </html>
